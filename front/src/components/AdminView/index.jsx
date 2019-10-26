@@ -6,7 +6,7 @@ import MenuLink from '../shared/MenuLink';
 import { logout } from '../../actions/authActions';
 
 const AdminView = props => {
-  console.log(props);
+  console.log(props.logout());
   return (
     <MainContainer>
       <div className='admin-menu'>
