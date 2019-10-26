@@ -18,6 +18,7 @@ export class AuthController {
 
   @Post('/signin')
   signIn(@Body(ValidationPipe) loginUserDto: LoginUserDto) {
+    console.log(`LOGIN request received: ${loginUserDto}`);
     return this.authService.signIn(loginUserDto);
   }
 }
