@@ -8,8 +8,8 @@ import {
 import { LoginUserDto } from './dto/login-user.dto';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
-import { GetUser } from 'src/user/decorators/get-user.decorator';
-import { User } from 'src/user/user.entity';
+import { GetUser } from '../user/decorators/get-user.decorator';
+import { User } from '../user/user.entity';
 
 @Controller('auth')
 export class AuthController {
