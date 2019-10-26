@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import MainContainer from '../MainContainer';
 import MenuButton from '../shared/MenuButton';
 import MenuButtons from '../shared/MenuButtons';
+import MenuLink from '../shared/MenuLink';
 
 const AdminView = props => {
   console.log(props.authReducer.user.role);
@@ -13,9 +14,9 @@ const AdminView = props => {
         <hr />
 
         <MenuButtons>
-          <MenuButton>Workers</MenuButton>
-          <MenuButton>Statistics</MenuButton>
-          <MenuButton>Logout</MenuButton>
+          <MenuLink>Workers</MenuLink>
+          <MenuLink>Statistics</MenuLink>
+          <MenuLink>Logout</MenuLink>
         </MenuButtons>
         <div className='text-center p-t-115'>
           <span className='txt1'>Found a problem?</span>
