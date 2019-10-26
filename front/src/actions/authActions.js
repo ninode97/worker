@@ -2,6 +2,7 @@ import axios from 'axios';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import { decodeJwtToken } from '../utils/decodeJwtToken';
 import { SET_CURRENT_USER } from './types';
+import jwtDecode from 'jwt-decode';
 
 export function setCurrentUser(user) {
   return {
