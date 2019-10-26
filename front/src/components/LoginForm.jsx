@@ -25,7 +25,9 @@ const LoginForm = props => {
       .then(response => {
         setError(null);
         localStorage.setItem('accessToken', response.data.accessToken);
-        console.log(localStorage.getItem('accessToken'));
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem(
+          'accessToken'
+        );
       })
       .catch(err => {
         if (err.response) {
