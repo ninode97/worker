@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import './styles.css';
 
 const MenuLink = props => {
-  const { to } = props;
-  return <Link style={styles} to={to} text='text' />;
+  const { to, label } = props;
+  return <Link style={styles} to={to} label={label} />;
 };
 const styles = {
   color: 'dodgerblue',
