@@ -1,6 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { User } from './user.entity';
-import { LoginUserDto } from '../auth/dto/login-user.dto';
+import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
 import * as bcrypt from 'bcryptjs';
 import {
   ConflictException,
@@ -9,8 +9,8 @@ import {
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-  async signUp(loginUserDto: LoginUserDto) {
-    const { username, password } = loginUserDto;
+  async signUp(authCredentialsDto: AuthCredentialsDto) {
+    const { username, password } = authCredentialsDto;
     const exists = this.findOne({ username });
 
     const user = new User();
@@ -36,8 +36,10 @@ export class UserRepository extends Repository<User> {
     return bcrypt.hash(password, salt);
   }
 
-  async validateUserPassword(loginUserDto: LoginUserDto): Promise<string> {
-    const { username, password } = loginUserDto;
+  async validateUserPassword(
+    authCredentialsDto: AuthCredentialsDto,
+  ): Promise<string> {
+    const { username, password } = authCredentialsDto;
     const user = await this.findOne({ username });
 
     if (user && (await user.validatePassword(password))) {
