@@ -48,7 +48,10 @@ const LoginForm = props => {
       {error === null ? null : <p style={{ color: 'red' }}>{error.error}</p>}
       <div className='container-login100'>
         <div className='wrap-login100'>
-          <form className='login100-form validate-form'>
+          <form
+            onSubmit={signInHandler}
+            className='login100-form validate-form'
+          >
             <span className='login100-form-title p-b-26'>Welcome</span>
             <span className='login100-form-title p-b-48'>
               <i className='zmdi zmdi-font'></i>
@@ -92,9 +95,7 @@ const LoginForm = props => {
             <div className='container-login100-form-btn'>
               <div className='wrap-login100-form-btn'>
                 <div className='login100-form-bgbtn'></div>
-                <button onClick={signInHandler} className='login100-form-btn'>
-                  Login
-                </button>
+                <button className='login100-form-btn'>Login</button>
               </div>
             </div>
 
