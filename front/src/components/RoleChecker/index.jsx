@@ -1,10 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import MainContainer from '../MainContainer';
+import AdminView from '../AdminView';
+
+
+
+function reduceView(role) {
+  switch(role) {
+    case 'admin': {
+      return <AdminView />
+    }
+    case 'user': {
+      return null;
+    }
+    default: {
+      console.log('destroy local storage');
+      return null;
+    }
+  }
+}
+
+
 
 const RoleChecker = props => {
   console.log(props.authReducer.user.role);
-  return <h1>Hello WOrld!</h1>;
+  const {role} = props.authReducer.user;
+
+  return ({reduceView(role)})
 };
 
 const mapStateToProps = store => ({
