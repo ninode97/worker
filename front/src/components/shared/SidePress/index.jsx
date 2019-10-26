@@ -9,6 +9,6 @@ const SidePress = props => {
   );
 };
 const styles = {
-  padding: '0px 55px 0px 55px'
+  padding: '0px 55px 33px 55px'
 };
 export default SidePress;
