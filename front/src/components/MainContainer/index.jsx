@@ -5,6 +5,7 @@ const MainContainer = props => {
   return (
     <div className='limiter'>
       <div className='container-login100'>
+        {navigation}
         <div className='wrap-login100'>{props.children}</div>
       </div>
     </div>
