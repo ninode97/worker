@@ -8,7 +8,7 @@ const App = () => {
   return (
     <Router history={history}>
       <div className='App'>
-        {localStorage.getItem('accessToken') === null ? (
+        {localStorage.getItem('jwtToken') === null ? (
           <LoginForm />
         ) : (
           <div>PROTECTED ROUTE</div>
