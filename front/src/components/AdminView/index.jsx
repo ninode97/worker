@@ -14,9 +14,9 @@ const AdminView = props => {
         <hr />
 
         <MenuButtons>
-          <MenuLink>Workers</MenuLink>
-          <MenuLink>Statistics</MenuLink>
-          <MenuLink>Logout</MenuLink>
+          <MenuLink to='/workers'>Workers</MenuLink>
+          <MenuLink to='/statistics'>Statistics</MenuLink>
+          <MenuLink to='/logout'>Logout</MenuLink>
         </MenuButtons>
         <div className='text-center p-t-115'>
           <span className='txt1'>Found a problem?</span>
