@@ -8,7 +8,7 @@ const AdminNavigation = props => {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         background: 'gainsboro',
-        paddingBottom: '15px'
+        padding: '2rem 0'
       }}
       className='nav-menu'
     >
