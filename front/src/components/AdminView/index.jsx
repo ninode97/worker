@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const RoleChecker = props => {
+const AdminView = props => {
   console.log(props.authReducer.user.role);
   return (
     <div className='limiter'>
@@ -74,4 +74,4 @@ const mapStateToProps = store => ({
   authReducer: store.authReducer
 });
 
-export default connect(mapStateToProps)(RoleChecker);
+export default connect(mapStateToProps)(AdminView);
