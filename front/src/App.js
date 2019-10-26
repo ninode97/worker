@@ -5,7 +5,9 @@ import history from './history';
 import './App.css';
 import { connect } from 'react-redux';
 
-const App = () => {
+const App = props => {
+  console.log(props.authReducer);
+
   return (
     <Router history={history}>
       <div className='App'>
