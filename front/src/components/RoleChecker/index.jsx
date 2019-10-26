@@ -2,12 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import AdminView from '../AdminView';
 
-
-
 function reduceView(role) {
-  switch(role) {
+  switch (role) {
     case 'admin': {
-      return <AdminView />
+      return <AdminView />;
     }
     case 'user': {
       return null;
@@ -19,13 +17,12 @@ function reduceView(role) {
   }
 }
 
-
-
 const RoleChecker = props => {
   console.log(props.authReducer.user.role);
-  const {role} = props.authReducer.user;
+  const { role } = props.authReducer.user;
+  let view = reduceView(role);
 
-  return ({reduceView(role)})
+  return <React.Fragment>{view}</React.Fragment>;
 };
 
 const mapStateToProps = store => ({
