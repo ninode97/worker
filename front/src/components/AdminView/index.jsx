@@ -4,36 +4,12 @@ import MainContainer from '../MainContainer';
 import MenuButtons from '../shared/MenuButtons';
 import MenuLink from '../shared/MenuLink';
 import { logout } from '../../actions/authActions';
+import AdminNavigation from './AdminNavigation';
 
 const AdminView = props => {
   return (
-    <MainContainer>
+    <MainContainer navigation={<AdminNavigation />}>
       <div className='admin-menu'>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly'
-          }}
-          className='nav-menu'
-        >
-          <i
-            style={{ fontSize: '3.5rem', color: 'dodgerblue' }}
-            class='fa fa-home'
-          ></i>
-          <i
-            style={{ fontSize: '3.5rem', color: 'dodgerblue' }}
-            class='fa fa-home'
-          ></i>
-          <i
-            style={{ fontSize: '3.5rem', color: 'dodgerblue' }}
-            class='fa fa-home'
-          ></i>
-          <i
-            style={{ fontSize: '3.5rem', color: 'dodgerblue' }}
-            class='fa fa-home'
-          ></i>
-        </div>
         <span className='login100-form-title p-b-15'>Admin Menu</span>
         <hr />
 
