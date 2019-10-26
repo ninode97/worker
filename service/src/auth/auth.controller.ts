@@ -7,7 +7,6 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('/login')
   login(@Body() loginUserDto: LoginUserDto) {
-    console.log(loginUserDto);
     return 'Logging In!';
   }
 
