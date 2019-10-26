@@ -20,32 +20,6 @@ const LoginForm = props => {
         setError({ error: 'saddly' });
       }
     );
-    // axios
-    //   .post('http://workero.site/api/auth/signin', {
-    //     username: username,
-    //     password: password
-    //   })
-    //   .then(response => {
-    //     props.login({});
-    //     // localStorage.setItem('accessToken', response.data.accessToken);
-    //     // axios.defaults.headers.common['Authorization'] = localStorage.getItem(
-    //     //   'accessToken'
-    //     // );
-    //     setError(null);
-    //     window.location.reload();
-    //   })
-    //   .catch(err => {
-    //     if (err.response) {
-    //       if (err.response.status === 401) {
-    //         setError({ error: 'Invalid Credentials' });
-    //       } else {
-    //         setError({
-    //           error:
-    //             'Currently, application is not working, try again later... Or conatact administrator!'
-    //         });
-    //       }
-    //     }
-    //   });
   };
 
   return (
