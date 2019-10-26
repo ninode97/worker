@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import MainContainer from '../MainContainer';
-import MenuButton from '../shared/MenuButton';
 import MenuButtons from '../shared/MenuButtons';
 import MenuLink from '../shared/MenuLink';
+import { logout } from '../../actions/authActions';
 
 const AdminView = props => {
   console.log(props.authReducer.user.role);
@@ -20,7 +20,7 @@ const AdminView = props => {
           <MenuLink to='/statistics' label='Statistics'>
             Statistics
           </MenuLink>
-          <MenuLink to='/logout' label='Logout'>
+          <MenuLink onClick={props.logout} to='/logout' label='Logout'>
             Logout
           </MenuLink>
         </MenuButtons>
@@ -43,4 +43,7 @@ const mapStateToProps = store => ({
   authReducer: store.authReducer
 });
 
-export default connect(mapStateToProps)(AdminView);
+export default connect(
+  {},
+  logout
+)(AdminView);
