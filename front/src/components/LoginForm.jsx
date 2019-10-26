@@ -13,6 +13,7 @@ const LoginForm = props => {
     props.login({ username, password }).then(
       res => window.location.reload(),
       err => {
+        console.log(err);
         setError({ error: 'saddly' });
       }
     );
