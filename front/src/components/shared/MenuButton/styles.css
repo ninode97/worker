@@ -1,4 +1,4 @@
 .menu-button:hover {
-  color: white;
+  color: white !important;
   background-color: dodgerblue;
 }
