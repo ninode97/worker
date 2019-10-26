@@ -21,7 +21,7 @@ const App = () => {
 
 function mapStateToProps(state) {
   const { authReducer } = state;
-  return { auth: auth };
+  return { authReducer: authReducer };
 }
 
 export default connect(mapStateToProps)(App);
