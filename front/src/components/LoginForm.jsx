@@ -24,9 +24,8 @@ const LoginForm = props => {
       })
       .then(response => {
         setError(null);
-        localStorage.setItem('accessorToken', response.data);
-        console.log(localStorage);
-        console.log(response.data);
+        localStorage.setItem('accessToken', response.data.accessToken);
+        console.log(localStorage.getItem('accessToken'));
       })
       .catch(err => {
         if (err.response) {
