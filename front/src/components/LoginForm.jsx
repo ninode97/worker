@@ -10,6 +10,7 @@ const LoginForm = props => {
       username: username,
       password: password
     });
+    console.log(response);
   };
   return (
     <div className='limiter'>
