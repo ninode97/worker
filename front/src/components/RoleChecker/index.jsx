@@ -11,6 +11,7 @@ const RoleChecker = props => {
             <span className='login100-form-title p-b-26'>App Menu</span>
             <span className='login100-form-title p-b-48'>
               <i className='zmdi zmdi-font'></i>
+              <i className='zmdi zmdi-font'></i>
             </span>
 
             {/* <div
