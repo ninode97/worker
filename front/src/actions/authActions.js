@@ -22,7 +22,7 @@ export function logout() {
 export function login(data) {
   return dispatch => {
     return axios.post('/api/auth/signin', data).then(res => {
-      const token = res.data.token;
+      const token = res.data.accessToken;
       console.log(token);
       localStorage.setItem('jwtToken', token);
       setAuthorizationToken(token);
