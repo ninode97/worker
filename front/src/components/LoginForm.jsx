@@ -16,7 +16,7 @@ const LoginForm = props => {
         console.log(response.data);
       })
       .catch(err => {
-        console.log(err);
+        console.log(JSON.stringify(err));
       });
   };
   return (
