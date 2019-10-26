@@ -19,13 +19,12 @@ const store = createStore(
   )
 );
 
-if (localStorage.jwtToken) {
-  setAuthorizationToken(localStorage.jwtToken);
-  store.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
-}
-
 if (localStorage.jwtToken === undefined) {
   localStorage.removeItem('jwtToken');
+  console.log('Removed!');
+} else if (localStorage.jwtToken) {
+  setAuthorizationToken(localStorage.jwtToken);
+  store.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
 }
 
 ReactDOM.render(
