@@ -4,14 +4,16 @@ import axios from 'axios';
 const LoginForm = props => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
   const signInHandler = async e => {
     e.preventDefault();
     console.log(`SignIn reuest`);
-    const response = await axios.post('http://workero.site/api/auth/signin', {
-      username: username,
-      password: password
-    });
-    console.log(response);
+    await axios
+      .post('http://workero.site/api/auth/signin', {
+        username: username,
+        password: password
+      })
+      .then(res => console.log(res.data).catch(err => console.log(err)));
   };
   return (
     <div className='limiter'>
