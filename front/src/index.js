@@ -20,6 +20,7 @@ const store = createStore(
 );
 
 if (localStorage.jwtToken == 'undefined') {
+  console.log(jwtToken);
   localStorage.removeItem('jwtToken');
   console.log('Removed!');
 } else if (localStorage.jwtToken) {
