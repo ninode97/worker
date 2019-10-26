@@ -9,7 +9,7 @@ const AdminView = props => {
   return (
     <MainContainer>
       <div className='admin-menu'>
-        <i class='fas fa-home'></i>
+        <i class='fas fas-home'></i>
         <span className='login100-form-title p-b-15'>Admin Menu</span>
         <hr />
 
