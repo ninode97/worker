@@ -58,7 +58,11 @@ const RoleChecker = props => {
             <div className='text-center p-t-115'>
               <span className='txt1'>Found a problem?</span>
 
-              <a className='txt2' href='/contact'>
+              <a
+                style={{ color: 'dodgerblue', paddingLeft: '10px' }}
+                className='txt2'
+                href='/contact'
+              >
                 Report
               </a>
             </div>
