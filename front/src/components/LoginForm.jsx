@@ -28,12 +28,6 @@ const LoginForm = props => {
             });
           }
         }
-        setError({
-          error:
-            'Currently, application is not working, try again later... Or conatact administrator!'
-        });
-
-        console.log(error);
       });
   };
   return (
