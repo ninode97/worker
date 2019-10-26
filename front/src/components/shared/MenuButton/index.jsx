@@ -1,8 +1,13 @@
 import React from 'react';
+import './styles.css';
 
 const MenuButton = props => {
   const { text } = props;
-  return <button style={styles}>{props.children}</button>;
+  return (
+    <button className='menu-button' style={styles}>
+      {props.children}
+    </button>
+  );
 };
 const styles = {
   color: 'dodgerblue',
