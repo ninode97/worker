@@ -10,7 +10,7 @@ const LoginForm = props => {
   useEffect(() => {}, [error]);
   const signInHandler = async e => {
     e.preventDefault();
-    localStorage.removeItem('jwtToken');
+
     props.login({ username, password }).then(
       console.log(username),
       // res => window.location.reload(),
