@@ -4,9 +4,8 @@ import { Request } from 'express';
 
 @Controller('user')
 export class UserController {
-  @Get()
+  @Get('/')
   getMe(@Req() request: Request) {
-    console.log(request);
-    return 'OOK!';
+    return request;
   }
 }
