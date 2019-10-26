@@ -7,13 +7,13 @@ const RoleChecker = props => {
     <div className='limiter'>
       <div className='container-login100'>
         <div className='wrap-login100'>
-          <form className='login100-form validate-form'>
+          <div className='login100-form validate-form'>
             <span className='login100-form-title p-b-26'>Welcome</span>
             <span className='login100-form-title p-b-48'>
               <i className='zmdi zmdi-font'></i>
             </span>
 
-            <div
+            {/* <div
               className='wrap-input100 validate-input'
               data-validate='Valid email is: a@b.c'
             >
@@ -53,16 +53,16 @@ const RoleChecker = props => {
                 <div className='login100-form-bgbtn'></div>
                 <button className='login100-form-btn'>Login</button>
               </div>
-            </div>
+            </div> */}
 
             <div className='text-center p-t-115'>
-              <span className='txt1'>Don’t have an account?</span>
+              <span className='txt1'>Found a problem?</span>
 
               <a className='txt2' href='/contact'>
-                Sign Up
+                Report
               </a>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
