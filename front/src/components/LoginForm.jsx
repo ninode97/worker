@@ -11,8 +11,7 @@ const LoginForm = props => {
   const signInHandler = async e => {
     e.preventDefault();
     props.login({ username, password }).then(
-      console.log(username),
-      // res => window.location.reload(),
+      res => window.location.reload(),
       err => {
         console.log(err);
         setError({ error: 'saddly' });
