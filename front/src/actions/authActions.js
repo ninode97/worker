@@ -25,8 +25,12 @@ export function login(data) {
       localStorage.setItem('jwtToken', token);
       setAuthorizationToken(token);
       const decodedUser = jwtDecode(token);
-      console.log(`DECODED-USER:${decodedUser.role}`);
-      dispatch(setCurrentUser(decodedUser));
+      dispatch(
+        setCurrentUser({
+          username: decodedUser.username,
+          role: decodedUser.role
+        })
+      );
     });
   };
 }
