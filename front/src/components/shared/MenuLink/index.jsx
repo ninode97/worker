@@ -4,7 +4,11 @@ import './styles.css';
 
 const MenuLink = props => {
   const { to, label } = props;
-  return <Link style={styles} to={to} label={label} />;
+  return (
+    <Link style={styles} to={to}>
+      {props.children}
+    </Link>
+  );
 };
 const styles = {
   color: 'dodgerblue',
