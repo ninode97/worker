@@ -6,6 +6,7 @@ const LoginForm = props => {
   const [password, setPassword] = useState('');
   const signInHandler = async e => {
     e.preventDefault();
+    console.log(`SignIn reuest`);
     const response = await axios.post('http://workero.site/api/auth/signin', {
       username: username,
       password: password
