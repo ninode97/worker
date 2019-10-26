@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import AdminView from '../AdminView';
+import UserView from '../UserView';
 
 function reduceView(role) {
   switch (role) {
@@ -8,7 +9,7 @@ function reduceView(role) {
       return <AdminView />;
     }
     case 'user': {
-      return null;
+      return <UserView />;
     }
     default: {
       console.log('destroy local storage');
