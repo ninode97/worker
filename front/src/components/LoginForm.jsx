@@ -17,8 +17,6 @@ const LoginForm = props => {
       })
       .catch(err => {
         if (err.response) {
-          console.log(err.response.status);
-          console.log(err.response);
           if (err.response.status === 400) {
             setError({ error: 'Invalid Credentials' });
           } else {
