@@ -5,7 +5,7 @@ import './styles.css';
 const MenuLink = props => {
   const { to, label } = props;
   return (
-    <Link style={styles} to={to}>
+    <Link className='menu-link' style={styles} to={to}>
       {props.children}
     </Link>
   );
