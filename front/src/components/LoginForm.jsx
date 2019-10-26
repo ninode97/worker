@@ -42,7 +42,7 @@ const LoginForm = props => {
   const formatedError = formatError(error);
   return (
     <div className='limiter'>
-      {error === null ? null : <p>{error.error}</p>}
+      {error === null ? null : <p style={{ color: 'red' }}>{error.error}</p>}
       <div className='container-login100'>
         <div className='wrap-login100'>
           <form className='login100-form validate-form'>
