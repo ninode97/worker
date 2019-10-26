@@ -8,6 +8,6 @@ const styles = {
   color: 'dodgerblue',
   border: '1px solid gainsboro',
   padding: '0.7rem',
-  borderRadius: '1rem 2rem'
+  borderRadius: '2px 2px'
 };
 export default MenuButton;
