@@ -4,7 +4,7 @@ import './styles.css';
 
 const MenuLink = props => {
   const { to } = props;
-  return <Link to={to}>{props.chilren}</Link>;
+  return <Link style={styles} to={to} text='text' />;
 };
 const styles = {
   color: 'dodgerblue',
