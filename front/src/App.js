@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-// import { simpleAction } from './actions/simpleAction';
 import LoginForm from './components/LoginForm';
 
 import './App.css';
