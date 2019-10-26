@@ -13,8 +13,8 @@ const AdminView = props => {
 
         <MenuButtons>
           <MenuButton>Workers</MenuButton>
-          <MenuButton>Workers</MenuButton>
-          <MenuButton>Workers</MenuButton>
+          <MenuButton>Statistics</MenuButton>
+          <MenuButton>Logout</MenuButton>
         </MenuButtons>
         <div className='text-center p-t-115'>
           <span className='txt1'>Found a problem?</span>
