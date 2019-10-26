@@ -25,7 +25,7 @@ export function login(data) {
       localStorage.setItem('jwtToken', token);
       setAuthorizationToken(token);
       const decodedUser = jwtDecode(token);
-      console.log(`DECODED-USER:${decodedUser}`);
+      console.log(`DECODED-USER:${JSON.stringify(decodedUser)}`);
       dispatch(setCurrentUser(decodedUser));
     });
   };
