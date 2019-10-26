@@ -15,7 +15,7 @@ const LoginForm = props => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-
+  useEffect(() => {}, [error]);
   const signInHandler = async e => {
     e.preventDefault();
     axios
