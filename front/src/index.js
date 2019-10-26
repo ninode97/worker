@@ -11,8 +11,6 @@ import setAuthorizationToken from './utils/setAuthorizationToken';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
-import { decodeJwtToken } from './utils/decodeJwtToken';
-
 const store = createStore(
   rootReducer,
   compose(
@@ -24,6 +22,10 @@ const store = createStore(
 if (localStorage.jwtToken) {
   setAuthorizationToken(localStorage.jwtToken);
   store.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
+}
+
+if (localStorage.jwtToken === undefined) {
+  localStorage.removeItem('jwtToken');
 }
 
 ReactDOM.render(
