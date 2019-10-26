@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { login } from '../actions/authActions';
 
-function formatError(error) {
-  if (error) {
-    return (
-      <div className='login-error'>
-        <p className='login-error__message'>{error}</p>
-      </div>
-    );
-  }
-  return null;
-}
 const LoginForm = props => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -18,32 +10,40 @@ const LoginForm = props => {
   useEffect(() => {}, [error]);
   const signInHandler = async e => {
     e.preventDefault();
-    axios
-      .post('http://workero.site/api/auth/signin', {
-        username: username,
-        password: password
-      })
-      .then(response => {
-        localStorage.setItem('accessToken', response.data.accessToken);
-        axios.defaults.headers.common['Authorization'] = localStorage.getItem(
-          'accessToken'
-        );
-        setError(null);
-      })
-      .catch(err => {
-        if (err.response) {
-          if (err.response.status === 401) {
-            setError({ error: 'Invalid Credentials' });
-          } else {
-            setError({
-              error:
-                'Currently, application is not working, try again later... Or conatact administrator!'
-            });
-          }
-        }
-      });
+    props.login({ username, password }).then(
+      res => window.location.reload(),
+      err => {
+        setError({ error: 'saddly' });
+      }
+    );
+    // axios
+    //   .post('http://workero.site/api/auth/signin', {
+    //     username: username,
+    //     password: password
+    //   })
+    //   .then(response => {
+    //     props.login({});
+    //     // localStorage.setItem('accessToken', response.data.accessToken);
+    //     // axios.defaults.headers.common['Authorization'] = localStorage.getItem(
+    //     //   'accessToken'
+    //     // );
+    //     setError(null);
+    //     window.location.reload();
+    //   })
+    //   .catch(err => {
+    //     if (err.response) {
+    //       if (err.response.status === 401) {
+    //         setError({ error: 'Invalid Credentials' });
+    //       } else {
+    //         setError({
+    //           error:
+    //             'Currently, application is not working, try again later... Or conatact administrator!'
+    //         });
+    //       }
+    //     }
+    //   });
   };
-  const formatedError = formatError(error);
+
   return (
     <div className='limiter'>
       {error === null ? null : <p style={{ color: 'red' }}>{error.error}</p>}
@@ -63,6 +63,7 @@ const LoginForm = props => {
               data-validate='Valid email is: a@b.c'
             >
               <input
+                autoComplete='true'
                 onChange={e => setUsername(e.target.value)}
                 className='input100'
                 type='text'
@@ -82,6 +83,7 @@ const LoginForm = props => {
                 <i className='zmdi zmdi-eye'></i>
               </span>
               <input
+                autoComplete='true'
                 onChange={e => setPassword(e.target.value)}
                 className='input100'
                 type='password'
@@ -103,7 +105,7 @@ const LoginForm = props => {
             <div className='text-center p-t-115'>
               <span className='txt1'>Don’t have an account?</span>
 
-              <a className='txt2' href='#'>
+              <a className='txt2' href='/contact'>
                 Sign Up
               </a>
             </div>
@@ -114,4 +116,7 @@ const LoginForm = props => {
   );
 };
 
-export default LoginForm;
+export default connect(
+  null,
+  { login }
+)(LoginForm);

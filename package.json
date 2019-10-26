@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "@babel/runtime": "^7.6.3"
+  },
+  "dependencies": {
+    "history": "^4.10.1"
+  }
+}

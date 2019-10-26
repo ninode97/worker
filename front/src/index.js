@@ -3,10 +3,31 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { rootReducer } from './reducers';
+import jwtDecode from 'jwt-decode';
+import { setCurrentUser } from './actions/authActions';
+import setAuthorizationToken from './utils/setAuthorizationToken';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
 
+const store = createStore(
+  rootReducer,
+  compose(
+    applyMiddleware(thunk),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  )
+);
+
+const token = localStorage.getItem('accessToken');
+if (token) {
+  setAuthorizationToken(token);
+  store.dispatch(setCurrentUser(jwtDecode(token)));
+}
 ReactDOM.render(
-  <App />,
-
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
 
