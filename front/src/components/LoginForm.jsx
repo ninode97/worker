@@ -15,8 +15,11 @@ const LoginForm = props => {
               className='wrap-input100 validate-input'
               data-validate='Valid email is: a@b.c'
             >
-              <input className='input100' type='text' name='email' />
-              <span className='focus-input100' data-placeholder='Email'></span>
+              <input className='input100' type='text' name='username' />
+              <span
+                className='focus-input100'
+                data-placeholder='username'
+              ></span>
             </div>
 
             <div
