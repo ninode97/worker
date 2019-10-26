@@ -9,7 +9,31 @@ const AdminView = props => {
   return (
     <MainContainer>
       <div className='admin-menu'>
-        <i style={{ height: '1rem', width: '1rem' }} class='fa fa-home'></i>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-evenly'
+          }}
+          className='nav-menu'
+        >
+          <i
+            style={{ fontSize: '3.5rem', color: 'dodgerblue' }}
+            class='fa fa-home'
+          ></i>
+          <i
+            style={{ fontSize: '3.5rem', color: 'dodgerblue' }}
+            class='fa fa-home'
+          ></i>
+          <i
+            style={{ fontSize: '3.5rem', color: 'dodgerblue' }}
+            class='fa fa-home'
+          ></i>
+          <i
+            style={{ fontSize: '3.5rem', color: 'dodgerblue' }}
+            class='fa fa-home'
+          ></i>
+        </div>
         <span className='login100-form-title p-b-15'>Admin Menu</span>
         <hr />
 
