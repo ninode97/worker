@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function formatError(error) {
@@ -15,6 +15,7 @@ const LoginForm = props => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+
   const signInHandler = async e => {
     e.preventDefault();
     axios
@@ -23,11 +24,11 @@ const LoginForm = props => {
         password: password
       })
       .then(response => {
-        setError(null);
         localStorage.setItem('accessToken', response.data.accessToken);
         axios.defaults.headers.common['Authorization'] = localStorage.getItem(
           'accessToken'
         );
+        setError(null);
       })
       .catch(err => {
         if (err.response) {

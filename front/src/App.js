@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import LoginForm from './components/LoginForm';
 
 import './App.css';
-class App extends Component {
-  render() {
-    return (
-      <div className='App'>
-        <LoginForm />
-      </div>
-    );
-  }
-}
 
+const App = () => {
+  return (
+    <div className='App'>
+      {localStorage.getItem('accessToken') === null ? (
+        <LoginForm />
+      ) : (
+        <div>PROTECTED ROUTE</div>
+      )}
+    </div>
+  );
+};
 export default App;
 // const mapStateToProps = state => ({
 //   ...state
