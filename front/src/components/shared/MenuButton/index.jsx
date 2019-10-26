@@ -7,6 +7,7 @@ const MenuButton = props => {
 const styles = {
   color: 'dodgerblue',
   border: '1px solid gainsboro',
-  padding: '1rem'
+  padding: '0.7rem',
+  borderRadius: '1rem 2rem'
 };
 export default MenuButton;
