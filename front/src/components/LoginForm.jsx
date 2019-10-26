@@ -8,12 +8,18 @@ const LoginForm = props => {
   const signInHandler = async e => {
     e.preventDefault();
     console.log(`SignIn reuest`);
-    await axios
-      .post('http://workero.site/api/auth/signin', {
-        username: username,
-        password: password
-      })
-      .then(res => console.log(res.data).catch(err => console.log(err)));
+    try {
+      await axios
+        .post('http://workero.site/api/auth/signin', {
+          username: username,
+          password: password
+        })
+        .then(res =>
+          console.log(res.data).catch(err => console.log('Bad credentials'))
+        );
+    } catch (err) {
+      console.log(`FAILED`);
+    }
   };
   return (
     <div className='limiter'>
