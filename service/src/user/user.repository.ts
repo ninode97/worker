@@ -7,7 +7,7 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 
-interface reactClientData {
+interface ReactClientData {
   username: string;
   role: string;
 }
@@ -43,7 +43,7 @@ export class UserRepository extends Repository<User> {
 
   async validateUserPassword(
     authCredentialsDto: AuthCredentialsDto,
-  ): Promise<string, string> {
+  ): Promise<ReactClientData> {
     const { username, password } = authCredentialsDto;
     const user = await this.findOne({ username });
 
