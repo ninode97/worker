@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import MainContainer from '../MainContainer';
 
 const AdminView = props => {
   console.log(props.authReducer.user.role);
