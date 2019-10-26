@@ -17,7 +17,6 @@ const LoginForm = props => {
   const [error, setError] = useState(null);
 
   const signInHandler = async e => {
-    e.preventDefault();
     axios
       .post('http://workero.site/api/auth/signin', {
         username: username,
