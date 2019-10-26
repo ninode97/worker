@@ -6,9 +6,6 @@ import MenuLink from '../shared/MenuLink';
 import { logout } from '../../actions/authActions';
 
 const AdminView = props => {
-  const handleLogout = e => {
-    props.logout();
-  };
   return (
     <MainContainer>
       <div className='admin-menu'>
@@ -22,7 +19,7 @@ const AdminView = props => {
           <MenuLink to='/statistics' label='Statistics'>
             Statistics
           </MenuLink>
-          <MenuLink onClick={handleLogout} to='/logout' label='Logout'>
+          <MenuLink onClick={props.logout} to='/logout' label='Logout'>
             Logout
           </MenuLink>
         </MenuButtons>
