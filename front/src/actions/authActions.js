@@ -1,6 +1,6 @@
 import axios from 'axios';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
-import jwtDecode from 'jwt-decode';
+import { decodeJwtToken } from '../utils/decodeJwtToken';
 import { SET_CURRENT_USER } from './types';
 
 export function setCurrentUser(user) {
@@ -21,10 +21,9 @@ export function logout() {
 export function login(data) {
   return dispatch => {
     return axios.post('/api/auth/signin', data).then(res => {
-      const token = res.data.accessToken;
-      localStorage.setItem('jwtToken', token);
-      setAuthorizationToken(token);
-      const decodedUser = jwtDecode(token);
+      localStorage.setItem('jwtToken', res.data.accessToken);
+      setAuthorizationToken(res.data.accessToken);
+      const decodedUser = decodeJwtToken();
       dispatch(
         setCurrentUser({
           username: decodedUser.username,
