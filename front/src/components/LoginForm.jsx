@@ -23,11 +23,12 @@ const LoginForm = props => {
         password: password
       })
       .then(response => {
+        setError(null);
         console.log(response.data);
       })
       .catch(err => {
         if (err.response) {
-          if (err.response.status === 400) {
+          if (err.response.status === 401) {
             setError({ error: 'Invalid Credentials' });
           } else {
             setError({
