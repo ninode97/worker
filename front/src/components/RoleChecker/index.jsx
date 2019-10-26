@@ -7,10 +7,7 @@ const RoleChecker = props => {
     <div className='limiter'>
       <div className='container-login100'>
         <div className='wrap-login100'>
-          <form
-            onSubmit={signInHandler}
-            className='login100-form validate-form'
-          >
+          <form className='login100-form validate-form'>
             <span className='login100-form-title p-b-26'>Welcome</span>
             <span className='login100-form-title p-b-48'>
               <i className='zmdi zmdi-font'></i>
@@ -22,7 +19,6 @@ const RoleChecker = props => {
             >
               <input
                 autoComplete='true'
-                onChange={e => setUsername(e.target.value)}
                 className='input100'
                 type='text'
                 name='username'
@@ -42,7 +38,6 @@ const RoleChecker = props => {
               </span>
               <input
                 autoComplete='true'
-                onChange={e => setPassword(e.target.value)}
                 className='input100'
                 type='password'
                 name='pass'
