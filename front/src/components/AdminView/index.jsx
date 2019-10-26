@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import MainContainer from '../MainContainer';
+import MenuButton from '../shared/MenuButton';
 
 const AdminView = props => {
   console.log(props.authReducer.user.role);
@@ -9,8 +10,9 @@ const AdminView = props => {
       <div className='admin-menu'>
         <span className='login100-form-title p-b-26'>Admin Menu</span>
         <form className='login100-form validate-form'>
-          <button className='login100-form-btn'>Login</button>
-
+          <MenuButton>Workers</MenuButton>
+          <MenuButton>Workers</MenuButton>
+          <MenuButton>Workers</MenuButton>
           <div className='text-center p-t-115'>
             <span className='txt1'>Found a problem?</span>
             <a
