@@ -1,11 +1,11 @@
 import React from 'react';
 
 const MainContainer = props => {
-  const { navigation } = props;
+  const { navigation, className } = props;
   return (
     <div className='limiter'>
       <div className='container-login100'>
-        <div className='wrap-login100'>
+        <div className={className}>
           {navigation}
           {props.children}
         </div>

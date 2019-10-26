@@ -8,7 +8,7 @@ import AdminNavigation from './AdminNavigation';
 
 const AdminView = props => {
   return (
-    <MainContainer navigation={<AdminNavigation />}>
+    <MainContainer className='wrap-view' navigation={<AdminNavigation />}>
       <div className='admin-menu'>
         <span className='login100-form-title p-b-15'>Admin Menu</span>
         <hr />

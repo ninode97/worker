@@ -25,7 +25,7 @@ const LoginForm = props => {
   return (
     <React.Fragment>
       {error === null ? null : <p style={{ color: 'red' }}>{error.error}</p>}
-      <MainContainer>
+      <MainContainer className='wrap-login100'>
         <form onSubmit={signInHandler} className='login100-form validate-form'>
           <span className='login100-form-title p-b-26'>Welcome</span>
           <span className='login100-form-title p-b-48'>
