@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const LoginForm = props => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const signInHandler = async e => {
+    e.preventDefault();
+    const response = await axios.post('http://workero.site/api/auth/login', {
+      username: username,
+      password: password
+    });
+  };
   return (
     <div className='limiter'>
       <div className='container-login100'>
@@ -15,7 +25,12 @@ const LoginForm = props => {
               className='wrap-input100 validate-input'
               data-validate='Valid email is: a@b.c'
             >
-              <input className='input100' type='text' name='username' />
+              <input
+                onChange={e => setUsername(e.target.value)}
+                className='input100'
+                type='text'
+                name='username'
+              />
               <span
                 className='focus-input100'
                 data-placeholder='username'
@@ -29,7 +44,12 @@ const LoginForm = props => {
               <span className='btn-show-pass'>
                 <i className='zmdi zmdi-eye'></i>
               </span>
-              <input className='input100' type='password' name='pass' />
+              <input
+                onChange={e => setPassword(e.target.value)}
+                className='input100'
+                type='password'
+                name='pass'
+              />
               <span
                 className='focus-input100'
                 data-placeholder='Password'
@@ -39,7 +59,9 @@ const LoginForm = props => {
             <div className='container-login100-form-btn'>
               <div className='wrap-login100-form-btn'>
                 <div className='login100-form-bgbtn'></div>
-                <button className='login100-form-btn'>Login</button>
+                <button onClick={signInHandler} className='login100-form-btn'>
+                  Login
+                </button>
               </div>
             </div>
 
