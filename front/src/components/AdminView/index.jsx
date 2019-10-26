@@ -6,7 +6,7 @@ import MenuLink from '../shared/MenuLink';
 import { logout } from '../../actions/authActions';
 
 const AdminView = props => {
-  console.log(props.authReducer.user.role);
+  console.log(props);
   return (
     <MainContainer>
       <div className='admin-menu'>
@@ -45,5 +45,5 @@ const mapStateToProps = store => ({
 
 export default connect(
   {},
-  logout
+  { logout }
 )(AdminView);
