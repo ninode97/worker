@@ -8,17 +8,12 @@ import { logout } from '../../actions/authActions';
 const UserView = props => {
   return (
     <MainContainer>
-      <div className='admin-menu'>
-        <span className='login100-form-title p-b-15'>Admin Menu</span>
+      <div className='user-menu'>
+        <span className='login100-form-title p-b-15'>User Menu</span>
         <hr />
 
         <MenuButtons>
-          <MenuLink to='/workers' label='Workers'>
-            Workers
-          </MenuLink>
-          <MenuLink to='/statistics' label='Statistics'>
-            Statistics
-          </MenuLink>
+          <MenuLink to='/works'>Works</MenuLink>
           <MenuLink onClick={props.logout} to='/logout' label='Logout'>
             Logout
           </MenuLink>
