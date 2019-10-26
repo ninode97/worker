@@ -2,12 +2,12 @@ import { Controller, Post } from '@nestjs/common';
 
 @Controller('auth')
 export class AuthController {
-  @Post()
+  @Post('/login')
   login() {
     return 'Logging In!';
   }
 
-  @Post()
+  @Post('/logout')
   logout() {
     return 'Logging Out!';
   }
