@@ -7,6 +7,11 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 
+interface reactClientData {
+  username: string;
+  role: string;
+}
+
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
   async signUp(authCredentialsDto: AuthCredentialsDto) {
@@ -38,12 +43,12 @@ export class UserRepository extends Repository<User> {
 
   async validateUserPassword(
     authCredentialsDto: AuthCredentialsDto,
-  ): Promise<string> {
+  ): Promise<string, string> {
     const { username, password } = authCredentialsDto;
     const user = await this.findOne({ username });
 
     if (user && (await user.validatePassword(password))) {
-      return user.username;
+      return { username: user.username, role: user.role };
     } else {
       return null;
     }
