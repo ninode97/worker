@@ -4,6 +4,7 @@ import { Router } from 'react-router-dom';
 import history from './history';
 import './App.css';
 import { connect } from 'react-redux';
+import RoleChecker from './components/RoleChecker';
 
 const App = props => {
   console.log(props.authReducer);
@@ -14,7 +15,7 @@ const App = props => {
         {localStorage.getItem('jwtToken') === null ? (
           <LoginForm />
         ) : (
-          <div>PROTECTED ROUTE</div>
+          <RoleChecker />
         )}
       </div>
     </Router>
