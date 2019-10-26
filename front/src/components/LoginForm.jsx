@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+function formatError(error) {
+  if (error) {
+    return (
+      <div className='login-error'>
+        <p className='login-error__message'>{error}</p>
+      </div>
+    );
+  }
+  return null;
+}
 const LoginForm = props => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -28,8 +38,10 @@ const LoginForm = props => {
         }
       });
   };
+  const formatedError = formatError(error);
   return (
     <div className='limiter'>
+      {formatedError}
       <div className='container-login100'>
         <div className='wrap-login100'>
           <form className='login100-form validate-form'>
