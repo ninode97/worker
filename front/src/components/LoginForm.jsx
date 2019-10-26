@@ -17,9 +17,21 @@ const LoginForm = props => {
       })
       .catch(err => {
         if (err.response) {
-          console.log(err.response);
+          if (err.response.status === 401) {
+            setError({ error: 'Invalid Credentials' });
+          } else {
+            setError({
+              error:
+                'Currently, application is not working, try again later... Or conatact administrator!'
+            });
+          }
         }
-        console.log(JSON.stringify(err));
+        setError({
+          error:
+            'Currently, application is not working, try again later... Or conatact administrator!'
+        });
+
+        console.log(error);
       });
   };
   return (
