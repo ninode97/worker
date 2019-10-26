@@ -21,13 +21,14 @@ export function logout() {
 export function login(data) {
   return dispatch => {
     return axios.post('/api/auth/signin', data).then(res => {
-      localStorage.setItem('jwtToken', res.data.accessToken);
-      setAuthorizationToken(res.data.accessToken);
-      const decodedUser = decodeJwtToken();
+      const token = res.data.token;
+      localStorage.setItem('jwtToken', token);
+      setAuthorizationToken(token);
+      const decodedToken = jwtDecode(token);
       dispatch(
         setCurrentUser({
-          username: decodedUser.username,
-          role: decodedUser.role
+          username: decodeJwtToken.username,
+          role: decodeJwtToken.role
         })
       );
     });
