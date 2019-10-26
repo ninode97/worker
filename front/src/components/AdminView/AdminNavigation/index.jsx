@@ -6,7 +6,8 @@ const AdminNavigation = props => {
       style={{
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        border: '1px solid gainsboro'
       }}
       className='nav-menu'
     >
