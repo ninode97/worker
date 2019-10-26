@@ -8,7 +8,7 @@ const RoleChecker = props => {
       <div className='container-login100'>
         <div className='wrap-login100'>
           <div className='login100-form validate-form'>
-            <span className='login100-form-title p-b-26'>Welcome</span>
+            <span className='login100-form-title p-b-26'>App Menu</span>
             <span className='login100-form-title p-b-48'>
               <i className='zmdi zmdi-font'></i>
             </span>
@@ -59,7 +59,7 @@ const RoleChecker = props => {
               <span className='txt1'>Found a problem?</span>
 
               <a
-                style={{ color: 'dodgerblue', paddingLeft: '10px' }}
+                style={{ color: 'dodgerblue', paddingLeft: '5px' }}
                 className='txt2'
                 href='/contact'
               >
