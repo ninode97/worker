@@ -4,7 +4,12 @@ import { AppModule } from './app.module';
 import * as config from 'config';
 
 async function bootstrap() {
-  const serverConfig = config.get('server');
+  // const serverConfig = config.get('server');
+  const serverConfig = {
+    port: 5000,
+    origin: 'http://www.workero.site',
+  };
+
   const logger = new Logger('bootstrap');
   const app = await NestFactory.create(AppModule);
 

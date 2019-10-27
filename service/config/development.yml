@@ -1,7 +1,7 @@
 db:
-  host: 'localhost'
-  username: 'user'
-  password: 'user'
+  host: 'workero.site'
+  username: 'admin'
+  password: 'admin'
   synchronize: true
 
 jwt:

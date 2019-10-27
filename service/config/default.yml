@@ -4,7 +4,8 @@ server:
 db:
   type: 'postgres'
   port: 5432
-  database: 'task_db'
+  database: 'test'
 
 jwt:
   expiresIn: 3600
+  secret: 'topSecret51'
