@@ -1,7 +1,5 @@
 import React from 'react';
 import LoginForm from './components/LoginForm';
-import { Router } from 'react-router-dom';
-import history from './history';
 import './App.css';
 import { connect } from 'react-redux';
 import RoleChecker from './components/RoleChecker';
@@ -10,15 +8,13 @@ const App = props => {
   console.log(props.authReducer);
 
   return (
-    <Router history={history}>
-      <div className='App'>
-        {localStorage.getItem('jwtToken') === null ? (
-          <LoginForm />
-        ) : (
-          <RoleChecker />
-        )}
-      </div>
-    </Router>
+    <div className="App">
+      {localStorage.getItem('jwtToken') === null ? (
+        <LoginForm />
+      ) : (
+        <RoleChecker />
+      )}
+    </div>
   );
 };
 

@@ -1,0 +1,4 @@
+.current-nav-element {
+  transition: ease-in-out 1s;
+  transform: rotate(360deg);
+}
