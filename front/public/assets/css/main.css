@@ -1,3 +1,6 @@
+html {
+  font-size: 62.5%;
+}
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 
@@ -426,9 +429,7 @@ iframe {
     #21d4fd,
     #b721ff
   );
-  background: -o-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
-  background: -moz-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
-  background: linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
+
   top: 0;
   left: -100%;
 

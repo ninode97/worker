@@ -1,25 +1,52 @@
 import React from 'react';
+import './index.css';
+import { Link } from 'react-router-dom';
 
 const AdminWorkers = () => {
   return (
-    <div>
-      <button style={styles.button}>Add Worker</button>
-      <button style={styles.button}>Update Worker</button>
-      <button style={styles.button}>Delete Worker</button>
-      <button style={styles.button}>Find Worker</button>
+    <div style={styles.container}>
+      <Link
+        className="admin-workers__button"
+        style={styles.button}
+        to="/workers/add"
+      >
+        Add Worker
+      </Link>
+      <Link
+        className="admin-workers__button"
+        style={styles.button}
+        to="/workers/add"
+      >
+        Update Worker
+      </Link>
+      <Link
+        className="admin-workers__button"
+        style={styles.button}
+        to="/workers/add"
+      >
+        Delete Worker
+      </Link>
+      <Link
+        className="admin-workers__button"
+        style={styles.button}
+        to="/workers/add"
+      >
+        Find Worker
+      </Link>
     </div>
   );
 };
 
 const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
   button: {
-    background: 'gainsboro',
+    background: 'white',
     width: '100%',
     padding: '1rem',
-    border: '1px solid white',
-    '&:hover': {
-      background: 'red'
-    }
+    border: '1px solid gainsboro'
   }
 };
 

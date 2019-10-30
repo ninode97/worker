@@ -1,0 +1,23 @@
+import React from 'react';
+import { validateProp } from '../../../utils/validateProp';
+import './styles.css';
+
+const Input = props => {
+  let { style, className, name, id, type } = props;
+  className = validateProp(className);
+  name = validateProp(name);
+  id = validateProp(id);
+  type = validateProp(type);
+  return (
+    <input
+      style={style}
+      className={`input input__${className}`}
+      type={type}
+      name={name}
+      id={id}
+      autoComplete
+    />
+  );
+};
+
+export default Input;

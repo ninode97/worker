@@ -1,8 +1,9 @@
 import React from 'react';
-import LoginForm from './components/LoginForm';
+//import LoginForm from './components/LoginForm';
 import './App.css';
 import { connect } from 'react-redux';
 import RoleChecker from './components/RoleChecker';
+import LoginForm from './components/LoginFormV2';
 
 const App = props => {
   console.log(props.authReducer);
