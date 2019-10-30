@@ -37,7 +37,7 @@ const LoginForm = props => {
   const signInHandler = async e => {
     e.preventDefault();
 
-    props.login({ username, password }).catch(err => {
+    props.login({ username, password }).then(err => {
       console.log(props);
       let msg = `Some error occurred! Please contact administrator!`;
       if (err.response) {
@@ -45,6 +45,8 @@ const LoginForm = props => {
           msg = `Perhaps server is down?`;
         } else if (err.response.status === 401) {
           msg = `Wrong credentials!`;
+        } else if (err.response.status === 400) {
+          msg = `Perhaps server is down?`;
         }
       }
       props.setError(msg);
