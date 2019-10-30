@@ -21,6 +21,7 @@ export function logout() {
 }
 
 export function login(data) {
+  console.log(`nun x`);
   return dispatch => {
     return axios.post('/api/auth/signin', data).then(res => {
       const token = res.data.accessToken;
