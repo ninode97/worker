@@ -1,9 +1,8 @@
 import React from 'react';
-//import LoginForm from './components/LoginForm';
 import './App.css';
 import { connect } from 'react-redux';
 import RoleChecker from './components/RoleChecker';
-import LoginForm from './components/LoginFormV2';
+import LoginForm from './components/LoginForm';
 
 const App = props => {
   console.log(props.authReducer);
@@ -25,14 +24,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(App);
-// export default App;
-// const mapStateToProps = state => ({
-//   ...state
-// });
-// const mapDispatchToProps = dispatch => ({
-//   simpleAction: () => dispatch(simpleAction())
-// });
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(App);

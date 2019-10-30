@@ -1,93 +1,135 @@
 import React, { useState, useEffect } from 'react';
-import MainContainer from './MainContainer';
-import axios from 'axios';
+import View from './View';
+import Title from './shared/Title';
+import LogoImage from './shared/LogoImage';
+
 import { connect } from 'react-redux';
 import { login } from '../actions/authActions';
+import { setError } from '../actions/errorActions';
+
+import Limiter from './shared/Limiter';
+import Wrapper from './shared/Wrapper';
+import FlexColumn from './shared/FlexColumn';
+import InputControl from './shared/InputControl';
+import Input from './shared/Input';
+import InputPlaceholder from './shared/InputPlaceholder';
+import FormButtonContainer from './shared/buttons/formButton/FormButtonContainer';
+import FormButtonWrapper from './shared/buttons/formButton/FormButtonWrapper';
+import FormButton from './shared/buttons/formButton/FormButton';
+
+function formatError(error) {
+  console.log(error);
+  if (error) {
+    return (
+      <div style={styles.error} className="view_error">
+        {error.error}
+      </div>
+    );
+  }
+  return null;
+}
 
 const LoginForm = props => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState(null);
-  useEffect(() => {}, [error]);
+
   const signInHandler = async e => {
     e.preventDefault();
 
-    props.login({ username, password }).then(
-      console.log(username),
-      // res => window.location.reload(),
-      err => {
-        console.log(err);
-        setError({ error: 'saddly' });
+    props.login({ username, password }).catch(err => {
+      console.log(props);
+      let msg = `Some error occurred! Please contact administrator!`;
+      if (err.response) {
+        if (err.response.status === 404) {
+          msg = `Perhaps server is down?`;
+        } else if (err.response.status === 401) {
+          msg = `Wrong credentials!`;
+        }
       }
-    );
+      props.setError(msg);
+    });
   };
-
   return (
-    <React.Fragment>
-      {error === null ? null : <p style={{ color: 'red' }}>{error.error}</p>}
-      <MainContainer className="wrap-login100">
-        <form onSubmit={signInHandler} className="login100-form validate-form">
-          <span className="login100-form-title p-b-26">Welcome</span>
-          <span className="login100-form-title p-b-48">
-            <i className="zmdi zmdi-font"></i>
-          </span>
+    <Limiter>
+      <View className="login-view">
+        <Wrapper>
+          {formatError(props.error)}
+          <FlexColumn>
+            <Title style={styles.title} title="Welcome" />
+            <LogoImage style={styles.logoIcon} className="zmdi zmdi-font" />
+            <form onSubmit={signInHandler}>
+              <InputControl>
+                <Input
+                  onChange={e => setUsername(e.target.value)}
+                  style={styles.input}
+                  type="text"
+                  name="username"
+                  id="username"
+                />
+                <InputPlaceholder placeholder="Username" />
+              </InputControl>
+              <InputControl>
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="btn-show-pass"
+                >
+                  <i className="zmdi zmdi-eye"></i>
+                </span>
+                <Input
+                  onChange={e => setPassword(e.target.value)}
+                  style={styles.input}
+                  type={showPassword ? 'text' : 'password'}
+                  name="pass"
+                  id="pass"
+                />
+                <InputPlaceholder placeholder="Password" />
+              </InputControl>
 
-          <div
-            className="wrap-input100 validate-input"
-            data-validate="Valid email is: a@b.c"
-          >
-            <input
-              autoComplete="true"
-              onChange={e => setUsername(e.target.value)}
-              className="input100"
-              type="text"
-              name="username"
-            />
-            <span className="focus-input100" data-placeholder="username"></span>
-          </div>
+              <FormButtonContainer>
+                <FormButtonWrapper>
+                  <FormButton>Login</FormButton>
+                </FormButtonWrapper>
+              </FormButtonContainer>
+            </form>
+            <div className="text-center p-t-115">
+              <span className="txt1">Don’t have an account?</span>
 
-          <div
-            className="wrap-input100 validate-input"
-            data-validate="Enter password"
-          >
-            <span
-              onClick={() => setShowPassword(!showPassword)}
-              className="btn-show-pass"
-            >
-              <i className="zmdi zmdi-eye"></i>
-            </span>
-            <input
-              autoComplete="true"
-              onChange={e => setPassword(e.target.value)}
-              className="input100"
-              type={showPassword ? 'text' : 'password'}
-              name="pass"
-            />
-            <span className="focus-input100" data-placeholder="Password"></span>
-          </div>
-
-          <div className="container-login100-form-btn">
-            <div className="wrap-login100-form-btn">
-              <div className="login100-form-bgbtn"></div>
-              <button className="login100-form-btn">Login</button>
+              <a className="txt2" href="/contact">
+                Sign Up
+              </a>
             </div>
-          </div>
-
-          <div className="text-center p-t-115">
-            <span className="txt1">Don’t have an account?</span>
-
-            <a className="txt2" href="/contact">
-              Sign Up
-            </a>
-          </div>
-        </form>
-      </MainContainer>
-    </React.Fragment>
+          </FlexColumn>
+        </Wrapper>
+      </View>
+    </Limiter>
   );
 };
 
+const styles = {
+  title: {
+    fontSize: '3.5rem',
+    fontWeight: '800'
+  },
+  logoIcon: {
+    fontSize: '5rem',
+    padding: '2rem 0 4rem 0'
+  },
+  input: {
+    // background: '#111',
+    // border: '1px solid red'
+  },
+  error: {
+    fontSize: '1.5rem',
+    color: 'red'
+  }
+};
+
+const mapStateToProps = state => ({
+  error: state.errorReducer
+});
+
 export default connect(
-  null,
-  { login }
+  mapStateToProps,
+  { login, setError }
 )(LoginForm);
