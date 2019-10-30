@@ -37,8 +37,7 @@ const LoginForm = props => {
   const signInHandler = async e => {
     e.preventDefault();
 
-    props.login({ username, password }).then(err => {
-      console.log(props);
+    props.login({ username, password }).then(console.log(props), err => {
       let msg = `Some error occurred! Please contact administrator!`;
       if (err.response) {
         if (err.response.status === 404) {
