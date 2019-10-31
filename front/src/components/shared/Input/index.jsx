@@ -17,7 +17,7 @@ const Input = props => {
       type={type}
       name={name}
       id={id}
-      value={value}
+      value={value === '' ? null : value}
       autoComplete="true"
     />
   );
