@@ -27,11 +27,11 @@ const AdminWorkersUpdate = () => {
           setFoundUser(response.data);
           setRole(response.data.role);
         } else {
-          setFoundUser(null);
+          setFoundUser({ status: 'error', message: 'User was not found!' });
         }
       })
       .catch(error => {
-        setMessage({ type: 'error', message: "Couldn't perform action!" });
+        setMessage({ type: 'error', message: 'Server is down!' });
       });
   }
 
