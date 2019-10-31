@@ -8,12 +8,9 @@ const initialState = {
 };
 
 export default (state = initialState, action = {}) => {
-  console.log(action.type);
-  console.log(`REDUCER`);
+  console.log(`SSSSSSSSSSSSSSSSSSADDDDDDDDDDDDDDDDd`);
   switch (action.type) {
     case SET_MESSAGE:
-      console.log('REDUCER SET MESSAGE');
-      console.log(action.payload);
       return {
         flashMessage: action.flashMessage
       };
