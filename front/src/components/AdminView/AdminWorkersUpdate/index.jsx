@@ -25,6 +25,7 @@ const AdminWorkersUpdate = () => {
         if (response.data) {
           setFoundUser(response.data);
           setRole(response.data.role);
+          console.log(role);
         } else {
           setFoundUser(null);
         }
