@@ -24,6 +24,7 @@ const AdminWorkersUpdate = () => {
       .then(response => {
         if (response.data) {
           setFoundUser(response.data);
+          setRole(response.data.role);
         } else {
           setFoundUser(null);
         }
@@ -102,7 +103,7 @@ const AdminWorkersUpdate = () => {
                 type="text"
                 name="role"
                 id="role"
-                value={foundUser.role}
+                value={role}
               />
 
               <InputPlaceholder placeholder="Role" />
