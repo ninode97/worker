@@ -8,7 +8,12 @@ const initialState = {
 };
 
 export default (state = initialState, action = {}) => {
+  console.log(`CALLING!`);
   switch (action.type) {
+    case SET_MESSAGE:
+      return {
+        flashMessage: action.flashMessage
+      };
     case SHOW_MESSAGE:
       return {
         state
@@ -16,10 +21,6 @@ export default (state = initialState, action = {}) => {
     case REMOVE_MESSAEGE:
       return {
         flashMessage: action.error
-      };
-    case SET_MESSAGE:
-      return {
-        flashMessage: action.flashMessage
       };
     default:
       return state;

@@ -20,7 +20,7 @@ const AdminWorkersAdd = props => {
   async function addNewUser(e) {
     e.preventDefault();
     const data = await props.addUser({ username, password });
-
+    console.log(props.setMessage);
     Object.keys(data.payload).forEach(key => {
       console.log(key);
     });
