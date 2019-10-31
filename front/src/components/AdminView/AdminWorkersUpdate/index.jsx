@@ -18,6 +18,7 @@ const AdminWorkersUpdate = () => {
     axios
       .post('api/users', username)
       .then(response => {
+        console.log(response);
         console.log(response.data);
       })
       .catch(error => {
