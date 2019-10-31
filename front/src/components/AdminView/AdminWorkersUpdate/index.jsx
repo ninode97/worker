@@ -12,6 +12,7 @@ import { formatMessage } from '../../../utils/utils';
 const AdminWorkersUpdate = () => {
   const [message, setMessage] = useState(null);
   const [username, setUsername] = useState('');
+  const [foundUser, setFoundUser] = useState(null);
 
   function findUser(e) {
     e.preventDefault();
@@ -28,28 +29,33 @@ const AdminWorkersUpdate = () => {
       });
   }
 
-  return (
-    <div style={styles.container}>
-      {formatMessage(message)}
-      <Title title="Update Worker" />
-      <form onSubmit={findUser} style={styles.form}>
-        <InputControl>
-          <Input
-            onChange={e => setUsername(e.target.value)}
-            type="text"
-            name="username"
-            id="username"
-          />
-          <InputPlaceholder placeholder="Username" />
-        </InputControl>
-        <FormButtonContainer>
-          <FormButtonWrapper>
-            <FormButton>Find User</FormButton>
-          </FormButtonWrapper>
-        </FormButtonContainer>
-      </form>
-    </div>
-  );
+  if (foundUser)
+    return (
+      <div style={styles.container}>
+        {formatMessage(message)}
+        <Title title="Update Worker" />
+        {foundUser !== null ? (
+          <form onSubmit={findUser} style={styles.form}>
+            <InputControl>
+              <Input
+                onChange={e => setUsername(e.target.value)}
+                type="text"
+                name="username"
+                id="username"
+              />
+              <InputPlaceholder placeholder="Username" />
+            </InputControl>
+            <FormButtonContainer>
+              <FormButtonWrapper>
+                <FormButton>Find User</FormButton>
+              </FormButtonWrapper>
+            </FormButtonContainer>
+          </form>
+        ) : (
+          <h1>UPDATE THE USER FIELDS!</h1>
+        )}
+      </div>
+    );
 };
 
 const styles = {
