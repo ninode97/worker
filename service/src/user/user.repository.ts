@@ -38,7 +38,6 @@ export class UserRepository extends Repository<User> {
     try {
       user.salt = await bcrypt.genSalt();
       if (updateUserDto.password) {
-        console.log(updateUserDto);
         user.password = await this.hashPassword(
           updateUserDto.password,
           user.salt,
