@@ -8,7 +8,6 @@ const ReadOnlyInput = props => {
   name = validateProp(name);
   id = validateProp(id);
   type = validateProp(type);
-  value = validateProp(value);
   return (
     <input
       style={style}
