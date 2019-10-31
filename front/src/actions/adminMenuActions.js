@@ -1,16 +1,18 @@
 import { ADD_USER, DELETE_USER, UPDATE_USER, FIND_USER } from './types';
 import axios from 'axios';
 
-export function addUser(user) {
-  axios
+export async function addUser(user) {
+  const response = await axios
     .post('/api/auth/signup', user)
     .then(res => {
-      return {
-        type: ADD_USER,
-        payload: res
-      };
+      console.log(res);
+      return res;
     })
     .catch(err => err.response);
+  return {
+    type: ADD_USER,
+    payload: response
+  };
 }
 export function deleteUser(error) {
   return {

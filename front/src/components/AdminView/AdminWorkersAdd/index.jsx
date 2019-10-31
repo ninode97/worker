@@ -41,7 +41,7 @@ const AdminWorkersAdd = props => {
       } else {
         message = 'Opps! Something went wrong!';
       }
-      props.setMessage({ type: 'error', message });
+      alert(message);
     }
   }
 
@@ -92,13 +92,7 @@ const mapStateToProps = state => ({
   flashMessage: state.flashReducer.flashMessage
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setFlash: flashMessage => dispatch(setMessage(flashMessage)),
-    addUser: user => dispatch(addUser(user))
-  };
-};
-
+const mapDispatchToProps = dispatch => ({ addUser, setMessage });
 export default connect(
   mapStateToProps,
   mapDispatchToProps
