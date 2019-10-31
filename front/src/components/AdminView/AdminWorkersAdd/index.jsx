@@ -17,19 +17,11 @@ const AdminWorkersAdd = props => {
   function addNewUser(e) {
     e.preventDefault();
     alert(`${username} = ${password}`);
-    props
-      .addUser({ username, password })
-      .then(
-        res => {
-          alert('Successully added!');
-        },
-        err => {
-          console.log(`!!!!!!!!!!!!!!!!`);
-        }
-      )
-      .catch(err => {
-        console.log('SAADDSASD');
-      });
+    props.addUser({ username, password }).then(res => {
+      if (res.status) {
+        alert(res.status);
+      }
+    });
   }
 
   return (
