@@ -12,7 +12,7 @@ export async function addUser(user) {
         console.log(err);
       });
     })
-    .catch(err => alert(err));
+    .catch(err => console.log(err));
 }
 export function deleteUser(error) {
   return {
