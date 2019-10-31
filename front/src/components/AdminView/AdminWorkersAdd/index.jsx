@@ -9,13 +9,14 @@ import FormButtonWrapper from '../../shared/buttons/formButton/FormButtonWrapper
 
 import { connect } from 'react-redux';
 import { addUser } from '../../../actions/adminMenuActions';
-import { setMessage } from '../../../actions/flashActions';
+// import { setMessage } from '../../../actions/flashActions';
 
 import { formatMessage } from '../../../utils/utils';
 
 const AdminWorkersAdd = props => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState(null);
 
   async function addNewUser(e) {
     e.preventDefault();
@@ -29,7 +30,7 @@ const AdminWorkersAdd = props => {
         type: 'success',
         message: 'Successfully Added!'
       };
-      props.setMessage(flashMessage);
+      setMessage(flashMessage);
     } else {
       let message = '';
       if (data.payload.status === 400) {
@@ -41,13 +42,13 @@ const AdminWorkersAdd = props => {
       } else {
         message = 'Opps! Something went wrong!';
       }
-      alert(message);
+      setMessage({ type: 'error', message: message });
     }
   }
 
   return (
     <div style={styles.container}>
-      {/* {formatMessage(props.message)} */}
+      {formatMessage(message)}
       <Title title="Add Worker" />
       <form onSubmit={addNewUser} style={styles.form}>
         <InputControl>
@@ -92,7 +93,7 @@ const mapStateToProps = state => ({
   flashMessage: state.flashReducer.flashMessage
 });
 
-const mapDispatchToProps = dispatch => ({ addUser, setMessage });
+const mapDispatchToProps = dispatch => ({ addUser });
 export default connect(
   mapStateToProps,
   mapDispatchToProps
