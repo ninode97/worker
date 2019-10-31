@@ -12,6 +12,8 @@ import { formatMessage } from '../../../utils/utils';
 const AdminWorkersUpdate = () => {
   const [message, setMessage] = useState(null);
   const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
   const [foundUser, setFoundUser] = useState(null);
 
   function findUser(e) {
@@ -33,26 +35,56 @@ const AdminWorkersUpdate = () => {
   return (
     <div style={styles.container}>
       {formatMessage(message)}
-      <Title title="Update Worker" />
+
       {foundUser === null ? (
-        <form onSubmit={findUser} style={styles.form}>
-          <InputControl>
-            <Input
-              onChange={e => setUsername(e.target.value)}
-              type="text"
-              name="username"
-              id="username"
-            />
-            <InputPlaceholder placeholder="Username" />
-          </InputControl>
-          <FormButtonContainer>
-            <FormButtonWrapper>
-              <FormButton>Find User</FormButton>
-            </FormButtonWrapper>
-          </FormButtonContainer>
-        </form>
+        <React.Fragment>
+          <Title title="Find Worker" />
+          <form onSubmit={findUser} style={styles.form}>
+            <InputControl>
+              <Input
+                onChange={e => setUsername(e.target.value)}
+                type="text"
+                name="username"
+                id="username"
+              />
+              <InputPlaceholder placeholder="Username" />
+            </InputControl>
+            <FormButtonContainer>
+              <FormButtonWrapper>
+                <FormButton>Find User</FormButton>
+              </FormButtonWrapper>
+            </FormButtonContainer>
+          </form>
+        </React.Fragment>
       ) : (
-        <h1>UPDATE THE USER FIELDS!</h1>
+        <React.Fragment>
+          <Title title="Update Worker" />
+          <form onSubmit={findUser} style={styles.form}>
+            <InputControl>
+              <Input
+                onChange={e => setPassword(e.target.value)}
+                type="text"
+                name="username"
+                id="username"
+              />
+              <InputPlaceholder placeholder="Username" />
+            </InputControl>
+            <InputControl>
+              <Input
+                onChange={e => setRole(e.target.value)}
+                type="text"
+                name="role"
+                id="role"
+              />
+              <InputPlaceholder placeholder="Role" />
+            </InputControl>
+            <FormButtonContainer>
+              <FormButtonWrapper>
+                <FormButton>Update User</FormButton>
+              </FormButtonWrapper>
+            </FormButtonContainer>
+          </form>
+        </React.Fragment>
       )}
     </div>
   );
