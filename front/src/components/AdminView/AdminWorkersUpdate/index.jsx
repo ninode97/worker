@@ -37,11 +37,13 @@ const AdminWorkersUpdate = () => {
 
   function updateUser(e) {
     e.preventDefault();
+    const data = {
+      password: password,
+      role: role
+    };
+    console.log(data);
     axios
-      .post(`https://workero.site/api/users/${username}`, {
-        password: password,
-        role: role
-      })
+      .post(`https://workero.site/api/users/${username}`, data)
       .then(response => {
         console.log(response);
       })
