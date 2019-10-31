@@ -42,6 +42,7 @@ const AdminWorkersAdd = props => {
     }
   }
 
+  console.log(props);
   return (
     <div style={styles.container}>
       {props.message ? formatMessage(props.message) : null}
