@@ -41,10 +41,10 @@ const AdminWorkersAdd = props => {
       props.setMessage({ type: 'error', message });
     }
   }
-
+  console.log(props.flashReducer);
   return (
     <div style={styles.container}>
-      {props.message ? formatMessage(props.flashMessage) : null}
+      {props.message ? formatMessage(props.flashReducer.flashMessage) : null}
       <Title title="Add Worker" />
       <form onSubmit={addNewUser} style={styles.form}>
         <InputControl>
@@ -86,7 +86,7 @@ const styles = {
 };
 
 const mapStateToProps = state => ({
-  flashMessage: state.flashReducer.flashMessage
+  flashReducer: state.flashReducer
 });
 
 const mapDispatchToProps = dispatch => ({ addUser, setMessage });
