@@ -9,9 +9,9 @@ import {
 export class UpdateUserDto {
   @IsOptional()
   @IsString()
-  @MinLength(1)
+  @MinLength(6)
   @MaxLength(20)
-  username: string;
+  password: string;
 
   @IsOptional()
   @IsString()

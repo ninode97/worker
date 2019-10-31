@@ -4,6 +4,7 @@ import { User } from './user.entity';
 import { UserRepository } from './user.repository';
 import { GetUserDto } from './dto/get-user-dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -23,5 +24,9 @@ export class UserService {
 
   async updatePassword(changePasswordDto: ChangePasswordDto) {
     return this.userRepository.updatePassword(changePasswordDto);
+  }
+
+  async updateUser(username: string, updateUserDto: UpdateUserDto) {
+    return this.userRepository.updateUser(username, updateUserDto);
   }
 }

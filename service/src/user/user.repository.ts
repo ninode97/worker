@@ -7,7 +7,9 @@ import { ChangePasswordDto } from './dto/change-password.dto';
 import {
   ConflictException,
   InternalServerErrorException,
+  NotFoundException,
 } from '@nestjs/common';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 interface ReactClientData {
   username: string;
@@ -27,6 +29,19 @@ export class UserRepository extends Repository<User> {
     } catch (err) {
       console.log(err);
       throw new InternalServerErrorException("Couldn't change the password");
+    }
+  }
+
+  async updateUser(username: string, updateUserDto: UpdateUserDto) {
+    const user = await this.findOne({ where: { username: username } });
+
+    try {
+      user.password = updateUserDto.password;
+      user.role = updateUserDto.role;
+      user.save();
+      return user;
+    } catch (err) {
+      throw new NotFoundException('User was not found!');
     }
   }
 
