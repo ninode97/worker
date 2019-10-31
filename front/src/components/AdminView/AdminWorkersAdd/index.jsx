@@ -28,23 +28,25 @@ const AdminWorkersAdd = props => {
       };
       props.setMessage(flashMessage);
     } else {
-      let message = '';
+      let content = '';
       if (data.payload.status === 400) {
-        message = 'Bad Request!';
+        content = 'Bad Request!';
       } else if (data.payload.status === 409) {
-        message = 'Already Exists!';
+        content = 'Already Exists!';
       } else if (data.payload.status === 502) {
-        message = 'Server is down, cannot perform this action!';
+        content = 'Server is down, cannot perform this action!';
       } else {
-        message = 'Opps! Something went wrong!';
+        content = 'Opps! Something went wrong!';
       }
-      props.setMessage({ type: 'error', message });
+      props.setMessage({ type: 'error', content });
     }
   }
   console.log(props.flashReducer);
   return (
     <div style={styles.container}>
-      {props.message ? formatMessage(props.flashReducer.flashMessage) : null}
+      {props.flashReducer.flashMessage
+        ? formatMessage(props.flashReducer.flashMessage)
+        : null}
       <Title title="Add Worker" />
       <form onSubmit={addNewUser} style={styles.form}>
         <InputControl>
