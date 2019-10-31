@@ -6,6 +6,7 @@ import {
   BadRequestException,
   Post,
   Param,
+  Put,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUserDto } from './dto/get-user-dto';
@@ -34,7 +35,7 @@ export class UserController {
     return this.userService.updatePassword(changePasswordDto);
   }
 
-  @Post('/:username')
+  @Put('/:username')
   updateUser(
     @Param('username') username: string,
     @Body(ValidationPipe) updateUserDto: UpdateUserDto,
