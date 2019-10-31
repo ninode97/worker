@@ -4,7 +4,10 @@ import axios from 'axios';
 export async function addUser(user) {
   const response = await axios
     .post('/api/auth/signup', user)
-    .then(res => res)
+    .then(res => {
+      console.log(res);
+      return res;
+    })
     .catch(err => err.response);
   return {
     type: ADD_USER,
