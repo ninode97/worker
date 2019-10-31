@@ -61,14 +61,7 @@ const AdminWorkersUpdate = () => {
           <Title title="Update Worker" />
           <form onSubmit={findUser} style={styles.form}>
             <InputControl>
-              <Input
-                onChange={e => setUsername(e.target.value)}
-                type="text"
-                name="username"
-                id="username"
-                value={username}
-                readOnly="readonly"
-              />
+              <Input readOnly value={username} />
               <InputPlaceholder placeholder="Username" />
             </InputControl>
             <InputControl>
