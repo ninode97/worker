@@ -35,7 +35,7 @@ const AdminWorkersUpdate = () => {
 
   function updateUser(e) {
     e.preventDefault();
-    alert(e.form.username);
+    alert(e);
   }
 
   return (
