@@ -17,9 +17,9 @@ const AdminRoutes = () => {
       <Route exact path="/messenger" component={AdminMessenger} />
       <Route exact path="/workers" component={AdminWorkers} />
       <Route exact path="/workers/add" component={AdminWorkersAdd} />
-      <Route exact path="/workers/update" component={AdminWorkersAdd} />
-      <Route exact path="/workers/delete" component={AdminWorkersAdd} />
-      <Route exact path="/workers/find" component={AdminWorkersAdd} />
+      <Route exact path="/workers/update" component={AdminWorkersUpdate} />
+      <Route exact path="/workers/delete" component={AdminWorkersDelete} />
+      <Route exact path="/workers/find" component={AdminWorkersFind} />
       <Route exact path="/statistics" component={AdminStatistics} />
     </React.Fragment>
   );

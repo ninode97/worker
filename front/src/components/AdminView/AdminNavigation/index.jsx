@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AnalyticsIcon from '../../shared/icons/AnalyticsIcon';
 import HomeIcon from '../../shared/icons/HomeIcon';
 import MessengerIcon from '../../shared/icons/MessengerIcon';
 import WorkerIcon from '../../shared/icons/WorkerIcon';
+import LogoutIcon from '../../shared/icons/LogoutIcon';
 import { Link } from 'react-router-dom';
 import './index.css';
 
-function reduceSelectedItem(buttonPath, currentPath) {
-  console.log(currentPath);
-  return buttonPath === currentPath ? 'current-nav-element' : '';
-}
+import { connect } from 'react-redux';
+import { logout } from '../../../actions/authActions';
 
 const AdminNavigation = props => {
-  const [currentPath, setCurrentPath] = useState(window.location.pathname);
   return (
     <div
       style={{
@@ -37,12 +35,21 @@ const AdminNavigation = props => {
       <Link to="/statistics">
         <AnalyticsIcon />
       </Link>
+      <Link
+        onClick={() => props.logout(props.authReducer.user)}
+        to="/statistics"
+      >
+        <LogoutIcon />
+      </Link>
     </div>
   );
 };
 
-const styles = {
-  link: {}
-};
+const mapStateToProps = store => ({
+  authReducer: store.authReducer
+});
 
-export default AdminNavigation;
+export default connect(
+  mapStateToProps,
+  { logout }
+)(AdminNavigation);

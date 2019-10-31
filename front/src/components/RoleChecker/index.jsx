@@ -19,7 +19,6 @@ function reduceView(role) {
 }
 
 const RoleChecker = props => {
-  console.log(props.authReducer.user.role);
   const { role } = props.authReducer.user;
   let view = reduceView(role);
 

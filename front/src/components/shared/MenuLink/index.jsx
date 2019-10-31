@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import './styles.css';
 
 const MenuLink = props => {
-  const { to, label, onClick } = props;
+  const { to, onClick } = props;
   return (
-    <Link onClick={onClick} className='menu-link' style={styles} to={to}>
+    <Link onClick={onClick} className="menu-link" style={styles} to={to}>
       {props.children}
     </Link>
   );

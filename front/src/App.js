@@ -5,8 +5,6 @@ import RoleChecker from './components/RoleChecker';
 import LoginForm from './components/LoginForm';
 
 const App = props => {
-  console.log(props.authReducer);
-
   return (
     <div className="App">
       {localStorage.getItem('jwtToken') === null ? (

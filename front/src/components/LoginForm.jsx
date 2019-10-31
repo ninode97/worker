@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import View from './View';
 import Title from './shared/Title';
 import LogoImage from './shared/LogoImage';

@@ -6,7 +6,6 @@ const ScreenContent = props => {
 
 const styles = {
   container: {
-    padding: '5rem 0 5rem 0',
     minHeight: '50vh'
   }
 };

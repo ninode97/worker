@@ -16,7 +16,7 @@ const Input = props => {
       type={type}
       name={name}
       id={id}
-      autoComplete
+      autoComplete="true"
     />
   );
 };

@@ -10,7 +10,6 @@ import Limiter from '../shared/Limiter';
 import Wrapper from '../shared/Wrapper';
 import { formatError } from '../../utils/utils';
 import FlexColumn from '../shared/FlexColumn';
-import Title from '../shared/Title';
 import AdminNavigation from './AdminNavigation';
 import ScreenContent from '../shared/screens/ScreenContent';
 
@@ -20,7 +19,7 @@ const AdminView = props => {
       <Limiter>
         <View>
           <Wrapper style={styles.navigationWrapper}>
-            {formatError}
+            {formatError(props.error)}
             <FlexColumn>
               <ScreenContent>
                 <AdminRoutes />
@@ -30,25 +29,6 @@ const AdminView = props => {
           </Wrapper>
         </View>
       </Limiter>
-      {/* <MainContainer className="wrap-view" navigation={<AdminNavigation />}>
-        <div className="admin-menu">
-          <span className="login100-form-title p-b-15">Admin Menu</span>
-          <hr />
-          <SidePress>
-            <AdminRoutes />
-            <div className="text-center p-t-115">
-              <span className="txt1">Found a problem?</span>
-              <a
-                style={{ color: 'dodgerblue', paddingLeft: '5px' }}
-                className="txt2"
-                href="/contact"
-              >
-                Report
-              </a>
-            </div>
-          </SidePress>
-        </div>
-      </MainContainer> */}
     </Router>
   );
 };

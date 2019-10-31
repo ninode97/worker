@@ -1,16 +1,8 @@
 import React from 'react';
 import './styles.css';
 
-function generateErrorReport(error) {
-  if (error) {
-    return <div className="view__error">{error.error}</div>;
-  }
-
-  return null;
-}
-
 const View = props => {
-  const { style, className, navigation, children, error } = props;
+  const { style, className, navigation, children } = props;
 
   return (
     <div style={style} className={`view ${className}`}>

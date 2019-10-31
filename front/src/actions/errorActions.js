@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, SET_ERROR } from './types';
+import { SET_ERROR } from './types';
 
 export function setError(error) {
   return {

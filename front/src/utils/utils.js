@@ -1,7 +1,6 @@
 import React from 'react';
 
 export function formatError(error) {
-  console.log(error);
   if (error) {
     return (
       <div
