@@ -2,6 +2,8 @@ import { EntityRepository, Repository } from 'typeorm';
 import { User } from './user.entity';
 import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
 import * as bcrypt from 'bcryptjs';
+import { ChangePasswordDto } from './dto/change-password.dto';
+
 import {
   ConflictException,
   InternalServerErrorException,
@@ -14,6 +16,20 @@ interface ReactClientData {
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
+  async updatePassword(changePasswordDto: ChangePasswordDto) {
+    const { username, password } = changePasswordDto;
+    const user = await this.findOne({ where: { username: username } });
+
+    try {
+      user.salt = await bcrypt.genSalt();
+      user.password = await this.hashPassword(password, user.salt);
+      user.save();
+    } catch (err) {
+      console.log(err);
+      throw new InternalServerErrorException("Couldn't change the password");
+    }
+  }
+
   async signUp(authCredentialsDto: AuthCredentialsDto) {
     const { username, password } = authCredentialsDto;
     const exists = this.findOne({ username });

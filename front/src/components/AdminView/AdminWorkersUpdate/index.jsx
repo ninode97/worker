@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Title from '../../shared/Title';
 import InputControl from '../../shared/InputControl';
 import Input from '../../shared/Input';
@@ -12,12 +13,22 @@ const AdminWorkersUpdate = () => {
   const [message, setMessage] = useState(null);
   const [username, setUsername] = useState('');
 
-  function findUser() {}
+  function findUser() {
+    axios
+      .post('api/users', username)
+      .then(response => {
+        console.log('response');
+      })
+      .catch(error => {
+        console.log('error');
+        console.log(error);
+      });
+  }
 
   return (
     <div style={styles.container}>
       {formatMessage(message)}
-      <Title title="Add Worker" />
+      <Title title="Update Worker" />
       <form onSubmit={findUser} style={styles.form}>
         <InputControl>
           <Input
@@ -30,7 +41,7 @@ const AdminWorkersUpdate = () => {
         </InputControl>
         <FormButtonContainer>
           <FormButtonWrapper>
-            <FormButton>Add User</FormButton>
+            <FormButton>Find User</FormButton>
           </FormButtonWrapper>
         </FormButtonContainer>
       </form>
