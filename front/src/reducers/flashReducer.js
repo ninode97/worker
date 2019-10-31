@@ -14,14 +14,12 @@ export default (state = initialState, action = {}) => {
         state
       };
     case REMOVE_MESSAEGE:
-      console.log(`SETTING ERROR`);
       return {
         flashMessage: action.error
       };
     case SET_MESSAGE:
-      console.log(`SETTING ERROR`);
       return {
-        flashMessage: action.error
+        flashMessage: action.flashMessage
       };
     default:
       return state;
