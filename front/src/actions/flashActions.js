@@ -1,9 +1,19 @@
-import { SET_MESSAGE, REMOVE_MESSAEGE, SHOW_MESSAGE } from './types';
+import {
+  SET_MESSAGE,
+  REMOVE_MESSAEGE,
+  SHOW_MESSAGE,
+  SET_CURRENT_USER
+} from './types';
 
-export function setMessage(flashMessage) {
+export function test(flashMessage) {
   return {
-    type: SET_MESSAGE,
-    flashMessage: flashMessage
+    type: SET_CURRENT_USER,
+    flashMessage
+  };
+}
+export function setMessage(flashMessage) {
+  return dispatch => {
+    dispatch(test(flashMessage));
   };
 }
 
