@@ -66,8 +66,9 @@ const AdminWorkersUpdate = () => {
                 type="text"
                 name="username"
                 id="username"
+                value={username}
               />
-              <InputPlaceholder placeholder="Password" />
+              <InputPlaceholder placeholder="Username" />
             </InputControl>
             <InputControl>
               <Input
