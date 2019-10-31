@@ -14,14 +14,26 @@ const AdminWorkersAdd = props => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  function addNewUser(e) {
+  async function addNewUser(e) {
     e.preventDefault();
-    alert(`${username} = ${password}`);
-    props.addUser({ username, password }).then(res => {
-      if (res) {
-        console.log(res);
+    props.addUser({ username, password }).then(console.log(props), err => {
+      let msg = `Some error occurred! Please contact administrator!`;
+      if (err.response) {
+        if (err.response.status === 404) {
+          msg = `Perhaps server is down?`;
+        } else if (err.response.status === 401) {
+          msg = `Wrong credentials!`;
+        } else if (err.response.status === 400) {
+          msg = `Perhaps server is down?`;
+        }
       }
+      //props.setError(msg);
     });
+    // props.addUser({ username, password }).then(res => {
+    //   if (res) {
+    //     console.log(res);
+    //   }
+    // });
   }
 
   return (
