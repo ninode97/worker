@@ -39,7 +39,6 @@ export class UserController {
     @Param('username') username: string,
     @Body(ValidationPipe) updateUserDto: UpdateUserDto,
   ) {
-    console.log(username);
-    console.log(updateUserDto);
+    return this.userService.updateUser(username, updateUserDto);
   }
 }
