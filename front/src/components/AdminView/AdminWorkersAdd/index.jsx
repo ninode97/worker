@@ -25,8 +25,11 @@ const AdminWorkersAdd = props => {
           msg = `Wrong credentials!`;
         } else if (err.response.status === 400) {
           msg = `Perhaps server is down?`;
+        } else if (err.response.status === 409) {
+          msg = `Username already exists in database`;
         }
       }
+      console.log(msg);
       //props.setError(msg);
     });
     // props.addUser({ username, password }).then(res => {
