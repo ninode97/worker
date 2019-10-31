@@ -1,18 +1,17 @@
 import {
   Controller,
-  Get,
   UseGuards,
-  Req,
   ValidationPipe,
   Body,
   BadRequestException,
   Post,
+  Param,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Request } from 'express';
 import { GetUserDto } from './dto/get-user-dto';
 import { UserService } from './user.service';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('users')
 @UseGuards(AuthGuard('jwt'))
@@ -33,5 +32,14 @@ export class UserController {
     @Body(ValidationPipe) changePasswordDto: ChangePasswordDto,
   ) {
     return this.userService.updatePassword(changePasswordDto);
+  }
+
+  @Post('/:username')
+  updateUser(
+    @Param('username') username: string,
+    @Body(ValidationPipe) updateUserDto: UpdateUserDto,
+  ) {
+    console.log(username);
+    console.log(updateUserDto);
   }
 }
