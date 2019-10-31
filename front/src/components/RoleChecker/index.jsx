@@ -8,12 +8,12 @@ function reduceView(role) {
     case 'admin': {
       return <AdminView />;
     }
-    case 'user': {
-      return <UserView />;
-    }
+    // case 'user': {
+    //   return <UserView />;
+    // }
     default: {
       console.log('destroy local storage');
-      return null;
+      return <h1>Hello World!</h1>;
     }
   }
 }
