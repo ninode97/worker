@@ -7,7 +7,10 @@ export async function addUser(user) {
     .then(res => {
       return {
         type: ADD_USER
-      };
+      }.catch(err => {
+        console.log(`ERRRORR!`);
+        console.log(err);
+      });
     })
     .catch(err => alert(err));
 }
