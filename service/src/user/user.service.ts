@@ -14,6 +14,7 @@ export class UserService {
 
   async findUser(getUserDto: GetUserDto) {
     const user = await this.userRepository.findOne({ where: getUserDto });
+    console.log(user);
     if (user) {
       return { username: user.username, role: user.role };
     }
