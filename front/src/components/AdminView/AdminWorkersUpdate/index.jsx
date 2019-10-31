@@ -30,7 +30,7 @@ const AdminWorkersUpdate = () => {
     <div style={styles.container}>
       {formatMessage(message)}
       <Title title="Update Worker" />
-      {foundUser !== null ? (
+      {foundUser === null ? (
         <form onSubmit={findUser} style={styles.form}>
           <InputControl>
             <Input
