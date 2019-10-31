@@ -13,7 +13,8 @@ const AdminWorkersUpdate = () => {
   const [message, setMessage] = useState(null);
   const [username, setUsername] = useState('');
 
-  function findUser() {
+  function findUser(e) {
+    e.preventDefault();
     axios
       .post('api/users', username)
       .then(response => {
