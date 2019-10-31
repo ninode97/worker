@@ -17,7 +17,8 @@ const AdminWorkersAdd = props => {
   async function addNewUser(e) {
     e.preventDefault();
     const data = await props.addUser({ username, password });
-    Object.keys(data.payload.request).forEach(key => {
+
+    Object.keys(data.payload.response).forEach(key => {
       console.log(key);
     });
     if (data.payload.response.code) {
