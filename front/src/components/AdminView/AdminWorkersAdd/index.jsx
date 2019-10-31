@@ -30,7 +30,6 @@ const AdminWorkersAdd = props => {
         message: 'Successfully Added!'
       };
       props.setMessage(flashMessage);
-      alert('NU NX');
     } else {
       let message = '';
       if (data.payload.status === 400) {

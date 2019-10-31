@@ -2,7 +2,6 @@ import React from 'react';
 
 export function formatMessage(message) {
   console.log(message);
-  console.log(`HHHHHHHHHHHHHHHHh`);
   if (!message) {
     return null;
   } else if (message.type === 'success') {
