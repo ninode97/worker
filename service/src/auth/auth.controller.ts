@@ -5,6 +5,7 @@ import {
   ValidationPipe,
   UseGuards,
   Request,
+  Put,
 } from '@nestjs/common';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { AuthService } from './auth.service';
@@ -30,7 +31,7 @@ export class AuthController {
   }
 
   @UseGuards(AuthGuard())
-  @Get('profile')
+  @Put('profile')
   getProfile(@Request() req) {
     return 'success';
   }
