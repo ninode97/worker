@@ -25,6 +25,7 @@ const AdminWorkersAdd = props => {
       console.log(key);
     });
     if (data.payload.status === 201) {
+      console.log(props.flashMessage);
       props.setMessage({ type: 'success', message: 'Successfully Added!' });
     } else {
       let message = '';
