@@ -19,9 +19,14 @@ const AdminWorkersAdd = props => {
     alert(`${username} = ${password}`);
     props
       .addUser({ username, password })
-      .then(res => {
-        alert('Successully added!');
-      })
+      .then(
+        res => {
+          alert('Successully added!');
+        },
+        err => {
+          console.log(`!!!!!!!!!!!!!!!!`);
+        }
+      )
       .catch(err => {
         console.log(err);
       });
