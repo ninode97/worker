@@ -2,14 +2,14 @@ import { ADD_USER, DELETE_USER, UPDATE_USER, FIND_USER } from './types';
 import axios from 'axios';
 
 export async function addUser(user) {
-  axios
+  return axios
     .post('/api/auth/signup', user)
     .then(res => {
-      console.log(res);
+      return {
+        type: ADD_USER
+      };
     })
     .catch(err => alert(err));
-
-  return 1;
 }
 export function deleteUser(error) {
   return {
