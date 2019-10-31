@@ -35,9 +35,17 @@ const AdminWorkersUpdate = () => {
 
   function updateUser(e) {
     e.preventDefault();
-    console.log(username);
-    console.log(password);
-    console.log(role);
+    axios
+      .post(`https://workero.site/api/users/${username}`, {
+        password: password,
+        role: role
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   return (
@@ -70,7 +78,7 @@ const AdminWorkersUpdate = () => {
           <form onSubmit={updateUser} style={styles.form}>
             <InputControl>
               <ReadOnlyInput
-                value={username}
+                value={foundUser.username}
                 type="text"
                 name="username"
                 id="username"
@@ -93,6 +101,7 @@ const AdminWorkersUpdate = () => {
                 type="text"
                 name="role"
                 id="role"
+                value={foundUser.role}
               />
               <InputPlaceholder placeholder="Role" />
             </InputControl>
