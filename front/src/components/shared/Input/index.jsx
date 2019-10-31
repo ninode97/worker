@@ -3,11 +3,12 @@ import { validateProp } from '../../../utils/validateProp';
 import './styles.css';
 
 const Input = props => {
-  let { style, className, name, id, type, onChange } = props;
+  let { style, className, name, id, type, onChange, readOnly, value } = props;
   className = validateProp(className);
   name = validateProp(name);
   id = validateProp(id);
   type = validateProp(type);
+  value = validateProp(value);
   return (
     <input
       onChange={onChange}
@@ -16,6 +17,7 @@ const Input = props => {
       type={type}
       name={name}
       id={id}
+      value={value}
       autoComplete="true"
     />
   );
