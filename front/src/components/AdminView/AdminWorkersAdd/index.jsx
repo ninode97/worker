@@ -9,6 +9,7 @@ import FormButtonWrapper from '../../shared/buttons/formButton/FormButtonWrapper
 
 import { connect } from 'react-redux';
 import { addUser } from '../../../actions/adminMenuActions';
+import { setMessage } from '../../../actions/flashActions';
 
 const AdminWorkersAdd = props => {
   const [username, setUsername] = useState('');
@@ -36,31 +37,6 @@ const AdminWorkersAdd = props => {
       }
       console.log(msg);
     }
-    //   data => {
-    //     console.log(data);
-    //   },
-    //   err => {
-    //     let msg = `Some error occurred! Please contact administrator!`;
-    //     if (err.response) {
-    //       if (err.response.status === 404) {
-    //         msg = `Perhaps server is down?`;
-    //       } else if (err.response.status === 401) {
-    //         msg = `Wrong credentials!`;
-    //       } else if (err.response.status === 400) {
-    //         msg = `Perhaps server is down?`;
-    //       } else if (err.response.status === 409) {
-    //         msg = `Username already exists in database`;
-    //       }
-    //     }
-    //     console.log(msg);
-    //     //props.setError(msg);
-    //   }
-    // );
-    // props.addUser({ username, password }).then(res => {
-    //   if (res) {
-    //     console.log(res);
-    //   }
-    // });
   }
 
   return (
@@ -104,5 +80,13 @@ const styles = {
     padding: '1rem 4rem'
   }
 };
-const mapDispatchToProps = dispatch => ({ addUser });
-export default connect(mapDispatchToProps)(AdminWorkersAdd);
+
+const mapStateToProps = state => ({
+  flashMessage: state.flashReducer.flashMessage
+});
+
+const mapDispatchToProps = dispatch => ({ addUser, setMessage });
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AdminWorkersAdd);
