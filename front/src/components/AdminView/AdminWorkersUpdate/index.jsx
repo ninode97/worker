@@ -24,6 +24,7 @@ const AdminWorkersUpdate = () => {
       .post('https://workero.site/api/users', { username })
       .then(response => {
         if (response.data) {
+          console.log(response.data);
           setFoundUser(response.data);
           setRole(response.data.role);
         } else {
