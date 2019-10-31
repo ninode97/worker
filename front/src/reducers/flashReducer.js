@@ -8,9 +8,9 @@ const initialState = {
 };
 
 export default (state = initialState, action = {}) => {
-  console.log(`CALLING!`);
   switch (action.type) {
     case SET_MESSAGE:
+      console.log(action.payload);
       return {
         flashMessage: action.flashMessage
       };
