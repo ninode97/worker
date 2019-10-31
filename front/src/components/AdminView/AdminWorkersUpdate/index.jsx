@@ -99,7 +99,7 @@ const AdminWorkersUpdate = () => {
             </InputControl>
             <InputControl>
               <input
-                onChange={setRole}
+                onChange={e => setRole(e.target.value)}
                 className={`input`}
                 type="text"
                 name="role"
