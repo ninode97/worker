@@ -11,6 +11,8 @@ import { connect } from 'react-redux';
 import { addUser } from '../../../actions/adminMenuActions';
 import { setMessage } from '../../../actions/flashActions';
 
+import { formatMessage } from '../../../utils/utils';
+
 const AdminWorkersAdd = props => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -23,24 +25,25 @@ const AdminWorkersAdd = props => {
       console.log(key);
     });
     if (data.payload.status === 201) {
-      alert('CREATED!');
+      props.setMessage({ type: 'success', message: 'Successfully Added!' });
     } else {
-      let msg = '';
+      let message = '';
       if (data.payload.status === 400) {
-        msg = 'Bad Request!';
+        message = 'Bad Request!';
       } else if (data.payload.status === 409) {
-        msg = 'Already Exists!';
+        message = 'Already Exists!';
       } else if (data.payload.status === 502) {
-        msg = 'Server is down, cannot perform this action!';
+        message = 'Server is down, cannot perform this action!';
       } else {
-        msg = 'Opps! Something went wrong!';
+        message = 'Opps! Something went wrong!';
       }
-      console.log(msg);
+      props.setMessage({ type: 'error', message });
     }
   }
 
   return (
     <div style={styles.container}>
+      {formatMessage(props.message)}
       <Title title="Add Worker" />
       <form onSubmit={addNewUser} style={styles.form}>
         <InputControl>
