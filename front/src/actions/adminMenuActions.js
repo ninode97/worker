@@ -4,8 +4,7 @@ import axios from 'axios';
 export async function addUser(user) {
   const response = await axios
     .post('/api/auth/signup', user)
-    .catch(err => console.log(JSON.stringify(err)));
-  console.log(response);
+    .catch(err => err.status);
   return {
     type: ADD_USER
   };
