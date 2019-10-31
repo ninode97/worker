@@ -19,43 +19,39 @@ const AdminWorkersUpdate = () => {
     axios
       .post('https://workero.site/api/users', { username })
       .then(response => {
-        console.log(username);
-        console.log(response);
-        console.log(response.data);
+        setFoundUser(response.data);
       })
       .catch(error => {
-        console.log('error');
-        console.log(error);
+        setMessage({ type: 'error', message: "Couldn't perform action!" });
       });
   }
 
-  if (foundUser)
-    return (
-      <div style={styles.container}>
-        {formatMessage(message)}
-        <Title title="Update Worker" />
-        {foundUser !== null ? (
-          <form onSubmit={findUser} style={styles.form}>
-            <InputControl>
-              <Input
-                onChange={e => setUsername(e.target.value)}
-                type="text"
-                name="username"
-                id="username"
-              />
-              <InputPlaceholder placeholder="Username" />
-            </InputControl>
-            <FormButtonContainer>
-              <FormButtonWrapper>
-                <FormButton>Find User</FormButton>
-              </FormButtonWrapper>
-            </FormButtonContainer>
-          </form>
-        ) : (
-          <h1>UPDATE THE USER FIELDS!</h1>
-        )}
-      </div>
-    );
+  return (
+    <div style={styles.container}>
+      {formatMessage(message)}
+      <Title title="Update Worker" />
+      {foundUser !== null ? (
+        <form onSubmit={findUser} style={styles.form}>
+          <InputControl>
+            <Input
+              onChange={e => setUsername(e.target.value)}
+              type="text"
+              name="username"
+              id="username"
+            />
+            <InputPlaceholder placeholder="Username" />
+          </InputControl>
+          <FormButtonContainer>
+            <FormButtonWrapper>
+              <FormButton>Find User</FormButton>
+            </FormButtonWrapper>
+          </FormButtonContainer>
+        </form>
+      ) : (
+        <h1>UPDATE THE USER FIELDS!</h1>
+      )}
+    </div>
+  );
 };
 
 const styles = {
