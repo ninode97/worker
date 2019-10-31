@@ -7,7 +7,8 @@ export async function addUser(user) {
     .then(res => res)
     .catch(err => err);
   return {
-    type: ADD_USER
+    type: ADD_USER,
+    payload: response
   };
 }
 export function deleteUser(error) {
