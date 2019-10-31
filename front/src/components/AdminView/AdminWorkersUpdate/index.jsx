@@ -90,7 +90,7 @@ const AdminWorkersUpdate = () => {
                 type="text"
                 name="username"
                 id="username"
-                value={foundUser.username}
+                value={foundUser.username === null ? '' : foundUser.username}
               />
 
               <InputPlaceholder placeholder="Username" />
