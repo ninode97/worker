@@ -49,7 +49,7 @@ const AdminWorkersUpdate = () => {
           setMessage({ type: 'success', message: 'Successfully Updated!' });
         },
         err => {
-          setMessage({ type: 'error', message: 'Error Occurred!!' });
+          setMessage({ type: 'error', message: 'Server is down!' });
         }
       )
       .catch(error => {
