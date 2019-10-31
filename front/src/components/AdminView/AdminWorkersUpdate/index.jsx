@@ -43,13 +43,13 @@ const AdminWorkersUpdate = () => {
     };
 
     axios
-      .post(`https://workero.site/api/users/${username}`, data)
+      .put(`https://workero.site/api/users/${username}`, data)
       .then(
         response => {
-          console.log(response);
+          setMessage({ type: 'success', message: 'Successfully Updated!' });
         },
         err => {
-          console.log(err);
+          setMessage({ type: 'error', message: 'Error Occurred!!' });
         }
       )
       .catch(error => {
@@ -60,7 +60,6 @@ const AdminWorkersUpdate = () => {
   return (
     <div style={styles.container}>
       {formatMessage(message)}
-
       {foundUser === null ? (
         <React.Fragment>
           <Title title="Find Worker" />

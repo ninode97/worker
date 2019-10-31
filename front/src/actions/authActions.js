@@ -22,8 +22,6 @@ export function login(data) {
   return dispatch => {
     return axios.post('/api/auth/signin', data).then(res => {
       const token = res.data.accessToken;
-      console.log(token);
-      console.log(token);
       localStorage.setItem('jwtToken', token);
       setAuthorizationToken(token);
       dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
