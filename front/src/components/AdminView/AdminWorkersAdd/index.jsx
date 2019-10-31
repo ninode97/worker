@@ -18,8 +18,8 @@ const AdminWorkersAdd = props => {
     e.preventDefault();
     alert(`${username} = ${password}`);
     props.addUser({ username, password }).then(res => {
-      if (res.status) {
-        alert(res.status);
+      if (res) {
+        console.log(res);
       }
     });
   }
