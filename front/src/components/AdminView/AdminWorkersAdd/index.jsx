@@ -47,7 +47,7 @@ const AdminWorkersAdd = props => {
 
   return (
     <div style={styles.container}>
-      {formatMessage(props.message)}
+      {/* {formatMessage(props.message)} */}
       <Title title="Add Worker" />
       <form onSubmit={addNewUser} style={styles.form}>
         <InputControl>
