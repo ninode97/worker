@@ -67,6 +67,7 @@ const AdminWorkersUpdate = () => {
                 name="username"
                 id="username"
                 value={username}
+                readonly="readonly"
               />
               <InputPlaceholder placeholder="Username" />
             </InputControl>
