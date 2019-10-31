@@ -17,7 +17,20 @@ const AdminWorkersAdd = props => {
   async function addNewUser(e) {
     e.preventDefault();
     const data = await props.addUser({ username, password });
-    console.log(data);
+    if (data.payload.status) {
+    } else {
+      let msg = '';
+      if (data.payload.status === 400) {
+        msg = 'Bad Request!';
+      } else if (data.payload.status === 409) {
+        msg = 'Already Exists!';
+      } else if (data.payload.status === 502) {
+        msg = 'Server is down, cannot perform this action!';
+      } else {
+        msg = 'Opps! Something went wrong!';
+      }
+      console.log(msg);
+    }
     //   data => {
     //     console.log(data);
     //   },
