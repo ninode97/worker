@@ -20,14 +20,14 @@ const AdminWorkersAdd = props => {
     Object.keys(data.payload).forEach(key => {
       console.log(key);
     });
-    if (data.payload.status) {
+    if (data.payload.response.code) {
     } else {
       let msg = '';
-      if (data.payload.status === 400) {
+      if (data.payload.response.code === 400) {
         msg = 'Bad Request!';
-      } else if (data.payload.status === 409) {
+      } else if (data.payload.response.code === 409) {
         msg = 'Already Exists!';
-      } else if (data.payload.status === 502) {
+      } else if (data.payload.response.code === 502) {
         msg = 'Server is down, cannot perform this action!';
       } else {
         msg = 'Opps! Something went wrong!';
