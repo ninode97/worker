@@ -1,14 +1,9 @@
 import { SET_MESSAGE, REMOVE_MESSAEGE, SHOW_MESSAGE } from './types';
 
-export function test(flashMessage) {
+export function setMessage(flashMessage) {
   return {
     type: SET_MESSAGE,
     flashMessage
-  };
-}
-export function setMessage(flashMessage) {
-  return dispatch => {
-    dispatch(test(flashMessage));
   };
 }
 
