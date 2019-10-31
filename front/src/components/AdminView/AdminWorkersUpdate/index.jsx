@@ -18,6 +18,7 @@ const AdminWorkersUpdate = () => {
     axios
       .post('https://workero.site/api/users', username)
       .then(response => {
+        console.log(username);
         console.log(response);
         console.log(response.data);
       })
