@@ -86,7 +86,7 @@ const AdminWorkersUpdate = () => {
           <form onSubmit={updateUser} style={styles.form}>
             <InputControl>
               <input
-                onChane={() => {}}
+                onChange={() => {}}
                 className={`input`}
                 type="text"
                 name="username"
