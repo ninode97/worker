@@ -17,21 +17,21 @@ const AdminWorkers = () => {
       <Link
         className="admin-workers__button"
         style={styles.button}
-        to="/workers/add"
+        to="/workers/update"
       >
         Update Worker
       </Link>
       <Link
         className="admin-workers__button"
         style={styles.button}
-        to="/workers/add"
+        to="/workers/delete"
       >
         Delete Worker
       </Link>
       <Link
         className="admin-workers__button"
         style={styles.button}
-        to="/workers/add"
+        to="/workers/find"
       >
         Find Worker
       </Link>
