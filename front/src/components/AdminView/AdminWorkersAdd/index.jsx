@@ -21,7 +21,8 @@ const AdminWorkersAdd = props => {
     Object.keys(data.payload).forEach(key => {
       console.log(key);
     });
-    if (data.payload.status) {
+    if (data.payload.status === 201) {
+      alert('CREATED!');
     } else {
       let msg = '';
       if (data.payload.status === 400) {
