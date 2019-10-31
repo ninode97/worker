@@ -95,5 +95,5 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({ addUser, setMessage });
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { addUser, setMessage }
 )(AdminWorkersAdd);
