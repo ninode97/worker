@@ -85,11 +85,12 @@ const AdminWorkersUpdate = () => {
           <Title title="Update Worker" />
           <form onSubmit={updateUser} style={styles.form}>
             <InputControl>
-              <ReadOnlyInput
-                value={foundUser.username}
+              <input
+                className={`input`}
                 type="text"
                 name="username"
                 id="username"
+                value={foundUser.username}
               />
 
               <InputPlaceholder placeholder="Username" />
@@ -110,7 +111,7 @@ const AdminWorkersUpdate = () => {
                 type="text"
                 name="role"
                 id="role"
-                value={role}
+                value={role === null ? '' : role}
               />
 
               <InputPlaceholder placeholder="Role" />
