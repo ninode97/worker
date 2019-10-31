@@ -38,7 +38,7 @@ const AdminWorkersUpdate = () => {
   function updateUser(e) {
     e.preventDefault();
     const data = {
-      password: null,
+      password: password,
       role: role
     };
     console.log(data);
