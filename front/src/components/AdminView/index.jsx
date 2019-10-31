@@ -1,35 +1,41 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import MainContainer from '../MainContainer';
-import MenuButtons from '../shared/MenuButtons';
-import MenuLink from '../shared/MenuLink';
 import { logout } from '../../actions/authActions';
-import AdminNavigation from './AdminNavigation';
-import SidePress from '../shared/SidePress';
+import { setError } from '../../actions/errorActions';
 import { Router } from 'react-router-dom';
 import history from '../../history';
 import AdminRoutes from './AdminRoutes';
+import View from '../View';
+import Limiter from '../shared/Limiter';
+import Wrapper from '../shared/Wrapper';
+import { formatError } from '../../utils/utils';
+import FlexColumn from '../shared/FlexColumn';
+import Title from '../shared/Title';
+import AdminNavigation from './AdminNavigation';
+import ScreenContent from '../shared/screens/ScreenContent';
 
 const AdminView = props => {
   return (
     <Router history={history}>
-      <MainContainer className="wrap-view" navigation={<AdminNavigation />}>
+      <Limiter>
+        <View>
+          <Wrapper style={styles.navigationWrapper}>
+            {formatError}
+            <FlexColumn>
+              <ScreenContent>
+                <AdminRoutes />
+              </ScreenContent>
+            </FlexColumn>
+            <AdminNavigation />
+          </Wrapper>
+        </View>
+      </Limiter>
+      {/* <MainContainer className="wrap-view" navigation={<AdminNavigation />}>
         <div className="admin-menu">
           <span className="login100-form-title p-b-15">Admin Menu</span>
           <hr />
           <SidePress>
             <AdminRoutes />
-            {/* <MenuButtons>
-              <MenuLink to="/workers" label="Workers">
-                Workers
-              </MenuLink>
-              <MenuLink to="/statistics" label="Statistics">
-                Statistics
-              </MenuLink>
-              <MenuLink onClick={props.logout} to="/logout" label="Logout">
-                Logout
-              </MenuLink>
-            </MenuButtons> */}
             <div className="text-center p-t-115">
               <span className="txt1">Found a problem?</span>
               <a
@@ -42,16 +48,23 @@ const AdminView = props => {
             </div>
           </SidePress>
         </div>
-      </MainContainer>
+      </MainContainer> */}
     </Router>
   );
 };
 
+const styles = {
+  navigationWrapper: {
+    padding: '0 0 0 0'
+  }
+};
+
 const mapStateToProps = store => ({
-  authReducer: store.authReducer
+  authReducer: store.authReducer,
+  error: store.errorReducer
 });
 
 export default connect(
   mapStateToProps,
-  { logout }
+  { setError, logout }
 )(AdminView);

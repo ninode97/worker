@@ -17,17 +17,7 @@ import FormButtonContainer from './shared/buttons/formButton/FormButtonContainer
 import FormButtonWrapper from './shared/buttons/formButton/FormButtonWrapper';
 import FormButton from './shared/buttons/formButton/FormButton';
 
-function formatError(error) {
-  console.log(error);
-  if (error) {
-    return (
-      <div style={styles.error} className="view_error">
-        {error.error}
-      </div>
-    );
-  }
-  return null;
-}
+import { formatError } from '../utils/utils';
 
 const LoginForm = props => {
   const [username, setUsername] = useState('');
