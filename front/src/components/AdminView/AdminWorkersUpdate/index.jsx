@@ -33,6 +33,11 @@ const AdminWorkersUpdate = () => {
       });
   }
 
+  function updateUser(e) {
+    e.preventDefault();
+    alert(e.form.username);
+  }
+
   return (
     <div style={styles.container}>
       {formatMessage(message)}
@@ -60,13 +65,13 @@ const AdminWorkersUpdate = () => {
       ) : (
         <React.Fragment>
           <Title title="Update Worker" />
-          <form onSubmit={findUser} style={styles.form}>
+          <form onSubmit={updateUser} style={styles.form}>
             <InputControl>
               <ReadOnlyInput
                 value={username}
                 type="text"
-                name="password"
-                id="password"
+                name="username"
+                id="username"
               />
 
               <InputPlaceholder placeholder="Username" />
