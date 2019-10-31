@@ -12,9 +12,9 @@ import { formatMessage } from '../../../utils/utils';
 
 const AdminWorkersUpdate = () => {
   const [message, setMessage] = useState(null);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [role, setRole] = useState(null);
   const [foundUser, setFoundUser] = useState(null);
 
   function findUser(e) {
