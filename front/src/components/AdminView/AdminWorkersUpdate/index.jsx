@@ -45,11 +45,11 @@ const AdminWorkersUpdate = () => {
       .put(`https://workero.site/api/users/${username}`, data)
       .then(
         response => {
-          setMessage({ type: 'success', message: 'Successfully Updated!' });
           setUsername(null);
           setPassword(null);
           setRole(null);
           setFoundUser(null);
+          setMessage({ type: 'success', message: 'Successfully Updated!' });
         },
         err => {
           setMessage({ type: 'error', message: 'Server is down!' });
