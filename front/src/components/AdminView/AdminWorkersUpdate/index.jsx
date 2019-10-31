@@ -41,12 +41,17 @@ const AdminWorkersUpdate = () => {
       password: password,
       role: role
     };
-    console.log(data);
+
     axios
       .post(`https://workero.site/api/users/${username}`, data)
-      .then(response => {
-        console.log(response);
-      })
+      .then(
+        response => {
+          console.log(response);
+        },
+        err => {
+          console.log(err);
+        }
+      )
       .catch(error => {
         console.log(error);
       });
