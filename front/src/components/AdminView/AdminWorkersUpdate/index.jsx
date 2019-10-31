@@ -18,6 +18,7 @@ const AdminWorkersUpdate = () => {
   const [foundUser, setFoundUser] = useState(null);
 
   function findUser(e) {
+    setMessage(null);
     e.preventDefault();
     axios
       .post('https://workero.site/api/users', { username })
