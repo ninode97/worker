@@ -19,6 +19,7 @@ const AdminWorkersUpdate = () => {
     axios
       .post('https://workero.site/api/users', { username })
       .then(response => {
+        console.log(response);
         setFoundUser(response.data);
       })
       .catch(error => {
