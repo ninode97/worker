@@ -1,13 +1,8 @@
-import {
-  SET_MESSAGE,
-  REMOVE_MESSAEGE,
-  SHOW_MESSAGE,
-  SET_CURRENT_USER
-} from './types';
+import { SET_MESSAGE, REMOVE_MESSAEGE, SHOW_MESSAGE } from './types';
 
 export function test(flashMessage) {
   return {
-    type: SET_CURRENT_USER,
+    type: SET_MESSAGE,
     flashMessage
   };
 }

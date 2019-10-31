@@ -26,6 +26,7 @@ export default (state = initialState, action = {}) => {
         flashMessage: action.error
       };
     default:
+      console.log(`NUUU NX~`);
       return state;
   }
 };
