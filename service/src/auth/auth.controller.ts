@@ -29,10 +29,4 @@ export class AuthController {
   ): Promise<{ accessToken: string }> {
     return this.authService.signIn(authCredentialsDto);
   }
-
-  @UseGuards(AuthGuard())
-  @Put('profile')
-  getProfile(@Request() req) {
-    return 'success';
-  }
 }
