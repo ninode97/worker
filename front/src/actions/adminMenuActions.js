@@ -5,7 +5,7 @@ export async function addUser(user) {
   const response = await axios
     .post('/api/auth/signup', user)
     .then(res => res)
-    .catch(err => err);
+    .catch(err => err.response);
   return {
     type: ADD_USER,
     payload: response
