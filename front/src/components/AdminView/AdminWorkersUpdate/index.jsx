@@ -25,7 +25,6 @@ const AdminWorkersUpdate = () => {
         if (response.data) {
           setFoundUser(response.data);
           setRole(response.data.role);
-          console.log(response.data.role);
         } else {
           setFoundUser(null);
         }
@@ -47,6 +46,10 @@ const AdminWorkersUpdate = () => {
       .then(
         response => {
           setMessage({ type: 'success', message: 'Successfully Updated!' });
+          setUsername(null);
+          setPassword(null);
+          setRole(null);
+          setFoundUser(null);
         },
         err => {
           setMessage({ type: 'error', message: 'Server is down!' });
