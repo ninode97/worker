@@ -42,7 +42,7 @@ const AdminWorkersAdd = props => {
     }
   }
 
-  console.log(props);
+  console.log(props.errorMessage);
   return (
     <div style={styles.container}>
       {props.message ? formatMessage(props.flashMessage) : null}
