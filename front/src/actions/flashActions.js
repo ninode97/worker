@@ -1,7 +1,7 @@
 import { SET_MESSAGE, REMOVE_MESSAEGE, SHOW_MESSAGE } from './types';
 
 export function setMessage(flashMessage) {
-  alert('VEIKIA');
+  alert(JSON.stringify(flashMessage));
   return {
     type: 'SET_MESSAGE',
     flashMessage
