@@ -35,7 +35,9 @@ const AdminWorkersUpdate = () => {
 
   function updateUser(e) {
     e.preventDefault();
-    console.log(e);
+    console.log(username);
+    console.log(password);
+    console.log(role);
   }
 
   return (
