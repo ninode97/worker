@@ -5,6 +5,7 @@ export async function addUser(user) {
   const data = await axios
     .post('/api/auth/signup', user)
     .catch(err => alert(err));
+  console.log(data);
   return 1;
 }
 export function deleteUser(error) {
