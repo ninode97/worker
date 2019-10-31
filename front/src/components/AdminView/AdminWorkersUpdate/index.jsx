@@ -19,8 +19,11 @@ const AdminWorkersUpdate = () => {
     axios
       .post('https://workero.site/api/users', { username })
       .then(response => {
-        console.log(response);
-        setFoundUser(response.data);
+        if (response.data) {
+          setFoundUser(response.data);
+        } else {
+          setFoundUser(null);
+        }
       })
       .catch(error => {
         setMessage({ type: 'error', message: "Couldn't perform action!" });
