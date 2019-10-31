@@ -2,7 +2,7 @@ import React from 'react';
 
 export function formatMessage(message) {
   console.log(message);
-  if (message.type === 'success') {
+  if (message && message.type === 'success') {
     console.log(message);
     return (
       <div
@@ -12,7 +12,7 @@ export function formatMessage(message) {
         <span>{message.message}</span>
       </div>
     );
-  } else if (message.type === 'error') {
+  } else if (message && message.type === 'error') {
     console.log(message);
     return (
       <div
