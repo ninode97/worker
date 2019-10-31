@@ -1,7 +1,10 @@
 import { SET_MESSAGE, REMOVE_MESSAEGE, SHOW_MESSAGE } from './types';
 
-export function setMessage(state) {
-  return state;
+export function setMessage(flashMessage) {
+  return {
+    type: SET_MESSAGE,
+    flashMessage: flashMessage
+  };
 }
 
 export function removeMessage(error) {
