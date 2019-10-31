@@ -8,7 +8,6 @@ const initialState = {
 };
 
 export default (state = initialState, action = {}) => {
-  console.log(`SSSSSSSSSSSSSSSSSSADDDDDDDDDDDDDDDDd`);
   switch (action.type) {
     case SET_MESSAGE:
       return {
@@ -23,6 +22,7 @@ export default (state = initialState, action = {}) => {
         flashMessage: action.error
       };
     default:
+      console.log(`SSSSSSSSSSSSSSSSSSADDDDDDDDDDDDDDDDd`);
       console.log(`NUUU NX~`);
       return state;
   }
