@@ -62,12 +62,21 @@ const AdminWorkersUpdate = () => {
           <form onSubmit={findUser} style={styles.form}>
             <InputControl>
               <Input
-                onChange={e => setPassword(e.target.value)}
+                onChange={e => setUsername(e.target.value)}
                 type="text"
                 name="username"
                 id="username"
               />
-              <InputPlaceholder placeholder="Username" />
+              <InputPlaceholder placeholder="Password" />
+            </InputControl>
+            <InputControl>
+              <Input
+                onChange={e => setPassword(e.target.value)}
+                type="text"
+                name="password"
+                id="password"
+              />
+              <InputPlaceholder placeholder="Password" />
             </InputControl>
             <InputControl>
               <Input
