@@ -19,10 +19,12 @@ const AdminWorkersAdd = props => {
     alert(`${username} = ${password}`);
     props
       .addUser({ username, password })
-      .then(() => {
-        alert('SUBMITED!');
+      .then(res => {
+        console.log(res);
       })
-      .catch(() => {});
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   return (
