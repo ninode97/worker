@@ -3,11 +3,7 @@ import axios from 'axios';
 
 export async function addUser(user) {
   return axios
-    .post('/api/auth/signup', {
-      username: 'lukas',
-      password: 'lukas',
-      role: 'user'
-    })
+    .post('/api/auth/signup', user)
     .then(res => {
       return {
         type: ADD_USER
