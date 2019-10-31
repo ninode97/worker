@@ -39,6 +39,7 @@ const AdminWorkersAdd = props => {
         content = 'Opps! Something went wrong!';
       }
       props.setMessage({ type: 'error', content });
+      console.log(props);
     }
   }
   console.log(props.flashReducer);
