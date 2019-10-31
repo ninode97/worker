@@ -19,37 +19,35 @@ const AdminWorkersAdd = props => {
 
   async function addNewUser(e) {
     e.preventDefault();
-    props.addUser({ username, password }).then(console.log(props), err => {
-      alert(err);
+    const data = await props.addUser({ username, password });
+    Object.keys(data.payload).forEach(key => {
+      console.log(key);
     });
-
-    // if (data.payload.status === 201) {
-    //   const flashMessage = {
-    //     type: 'success',
-    //     content: 'Successfully Added!'
-    //   };
-    //   props.setMessage(flashMessage);
-    // } else {
-    //   let content = '';
-    //   if (data.payload.status === 400) {
-    //     content = 'Bad Request!';
-    //   } else if (data.payload.status === 409) {
-    //     content = 'Already Exists!';
-    //   } else if (data.payload.status === 502) {
-    //     content = 'Server is down, cannot perform this action!';
-    //   } else {
-    //     content = 'Opps! Something went wrong!';
-    //   }
-    //   props.setMessage({ type: 'error', content });
-    //   console.log(props);
-    // }
+    if (data.payload.status === 201) {
+      console.log(props.flashMessage);
+      const flashMessage = {
+        type: 'success',
+        message: 'Successfully Added!'
+      };
+      props.setMessage(flashMessage);
+    } else {
+      let message = '';
+      if (data.payload.status === 400) {
+        message = 'Bad Request!';
+      } else if (data.payload.status === 409) {
+        message = 'Already Exists!';
+      } else if (data.payload.status === 502) {
+        message = 'Server is down, cannot perform this action!';
+      } else {
+        message = 'Opps! Something went wrong!';
+      }
+      props.setMessage({ type: 'error', message });
+    }
   }
-  console.log(props.flashReducer);
+
   return (
     <div style={styles.container}>
-      {props.flashReducer.flashMessage
-        ? formatMessage(props.flashReducer.flashMessage)
-        : null}
+      {formatMessage(props.message)}
       <Title title="Add Worker" />
       <form onSubmit={addNewUser} style={styles.form}>
         <InputControl>
@@ -91,11 +89,17 @@ const styles = {
 };
 
 const mapStateToProps = state => ({
-  flashReducer: state.flashReducer
+  flashMessage: state.flashReducer.flashMessage
 });
 
-const mapDispatchToProps = dispatch => ({ addUser, setMessage });
+const mapDispatchToProps = dispatch => {
+  return {
+    setFlash: flashMessage => dispatch(setMessage(flashMessage)),
+    addUser: user => dispatch(addUser(user))
+  };
+};
+
 export default connect(
   mapStateToProps,
-  { addUser, setMessage }
+  mapDispatchToProps
 )(AdminWorkersAdd);
