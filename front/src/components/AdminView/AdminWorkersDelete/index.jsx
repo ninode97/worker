@@ -1,6 +1,6 @@
 import React from 'react';
-const AdminWorkersDelete = () => {
-  return <h1>Delete</h1>;
+const AdminWorkersBlock = () => {
+  return <h1>BLOCK</h1>;
 };
 
-export default AdminWorkersDelete;
+export default AdminWorkersBlock;

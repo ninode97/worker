@@ -7,7 +7,7 @@ import AdminWorkers from '../AdminWorkers';
 import AdminStatistics from '../AdminStatistics';
 import AdminWorkersAdd from '../AdminWorkersAdd';
 import AdminWorkersUpdate from '../AdminWorkersUpdate';
-import AdminWorkersDelete from '../AdminWorkersDelete';
+import AdminWorkersBlock from '../AdminWorkersBlock';
 import AdminWorkersFind from '../AdminWorkersFind';
 
 const AdminRoutes = () => {
@@ -18,7 +18,7 @@ const AdminRoutes = () => {
       <Route exact path="/workers" component={AdminWorkers} />
       <Route exact path="/workers/add" component={AdminWorkersAdd} />
       <Route exact path="/workers/update" component={AdminWorkersUpdate} />
-      <Route exact path="/workers/delete" component={AdminWorkersDelete} />
+      <Route exact path="/workers/block" component={AdminWorkersBlock} />
       <Route exact path="/workers/find" component={AdminWorkersFind} />
       <Route exact path="/statistics" component={AdminStatistics} />
     </React.Fragment>

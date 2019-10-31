@@ -24,9 +24,9 @@ const AdminWorkers = () => {
       <Link
         className="admin-workers__button"
         style={styles.button}
-        to="/workers/delete"
+        to="/workers/block"
       >
-        Delete Worker
+        Block Worker
       </Link>
       <Link
         className="admin-workers__button"
