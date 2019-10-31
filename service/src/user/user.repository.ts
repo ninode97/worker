@@ -36,7 +36,11 @@ export class UserRepository extends Repository<User> {
     const user = await this.findOne({ where: { username: username } });
 
     try {
-      user.password = updateUserDto.password;
+      user.salt = await bcrypt.genSalt();
+      user.password = await this.hashPassword(
+        updateUserDto.password,
+        user.salt,
+      );
       user.role = updateUserDto.role;
       user.save();
       return user;
