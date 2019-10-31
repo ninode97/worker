@@ -1,6 +1,7 @@
 import { SET_MESSAGE, REMOVE_MESSAEGE, SHOW_MESSAGE } from './types';
 
 export function setMessage(flashMessage) {
+  console.log(`FLASH MESSAGE`);
   alert(flashMessage);
   return {
     type: SET_MESSAGE,
