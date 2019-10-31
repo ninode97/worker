@@ -37,11 +37,16 @@ export class UserRepository extends Repository<User> {
 
     try {
       user.salt = await bcrypt.genSalt();
-      user.password = await this.hashPassword(
-        updateUserDto.password,
-        user.salt,
-      );
-      user.role = updateUserDto.role;
+      if (updateUserDto.password) {
+        user.password = await this.hashPassword(
+          updateUserDto.password,
+          user.salt,
+        );
+      }
+      if (updateUserDto.role) {
+        user.role = updateUserDto.role;
+      }
+
       user.save();
       return user;
     } catch (err) {
