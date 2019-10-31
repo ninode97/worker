@@ -1,10 +1,7 @@
 import React from 'react';
 
 export function formatMessage(message) {
-  console.log(message);
-  if (!message) {
-    return null;
-  } else if (message.type === 'success') {
+  if (message.type === 'success') {
     return (
       <div
         style={{ color: 'green' }}

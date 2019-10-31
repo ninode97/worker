@@ -27,7 +27,7 @@ const AdminWorkersAdd = props => {
       console.log(props.flashMessage);
       const flashMessage = {
         type: 'success',
-        message: 'Successfully Added!'
+        content: 'Successfully Added!'
       };
       props.setMessage(flashMessage);
     } else {
@@ -47,7 +47,7 @@ const AdminWorkersAdd = props => {
 
   return (
     <div style={styles.container}>
-      {formatMessage(props.message)}
+      {props.message ? formatMessage(props.message) : null}
       <Title title="Add Worker" />
       <form onSubmit={addNewUser} style={styles.form}>
         <InputControl>
