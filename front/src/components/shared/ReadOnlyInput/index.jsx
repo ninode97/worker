@@ -2,8 +2,8 @@ import React from 'react';
 import { validateProp } from '../../../utils/validateProp';
 import './styles.css';
 
-const Input = props => {
-  let { style, className, name, id, type, onChange, value } = props;
+const ReadOnlyInput = props => {
+  let { style, className, name, id, type, readOnly, value } = props;
   className = validateProp(className);
   name = validateProp(name);
   id = validateProp(id);
@@ -11,15 +11,15 @@ const Input = props => {
   value = validateProp(value);
   return (
     <input
-      onChange={onChange}
       style={style}
-      className={`input input__${className}`}
+      className={`read-only-input read-only-input__${className}`}
       type={type}
       name={name}
       id={id}
-      autoComplete="true"
+      readOnly
+      value={value}
     />
   );
 };
 
-export default Input;
+export default ReadOnlyInput;

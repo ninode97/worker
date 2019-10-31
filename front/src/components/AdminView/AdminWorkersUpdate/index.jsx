@@ -3,6 +3,7 @@ import axios from 'axios';
 import Title from '../../shared/Title';
 import InputControl from '../../shared/InputControl';
 import Input from '../../shared/Input';
+import ReadOnlyInput from '../../shared/ReadOnlyInput';
 import InputPlaceholder from '../../shared/InputPlaceholder';
 import FormButton from '../../shared/buttons/formButton/FormButton';
 import FormButtonContainer from '../../shared/buttons/formButton/FormButtonContainer';
@@ -61,7 +62,13 @@ const AdminWorkersUpdate = () => {
           <Title title="Update Worker" />
           <form onSubmit={findUser} style={styles.form}>
             <InputControl>
-              <Input readOnly value={username} />
+              <ReadOnlyInput
+                value={username}
+                type="text"
+                name="password"
+                id="password"
+              />
+
               <InputPlaceholder placeholder="Username" />
             </InputControl>
             <InputControl>
