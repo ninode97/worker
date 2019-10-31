@@ -96,13 +96,15 @@ const AdminWorkersUpdate = () => {
               <InputPlaceholder placeholder="Password" />
             </InputControl>
             <InputControl>
-              <Input
-                onChange={e => setRole(e.target.value)}
+              <input
+                onChange={setRole}
+                className={`input`}
                 type="text"
                 name="role"
                 id="role"
                 value={foundUser.role}
               />
+
               <InputPlaceholder placeholder="Role" />
             </InputControl>
             <FormButtonContainer>
