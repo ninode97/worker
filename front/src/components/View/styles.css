@@ -11,4 +11,29 @@
   align-items: center;
   padding: 15px;
   background: #f2f2f2;
+  align-content: space-between;
+}
+
+.flex-column.screen-nav-separator {
+  justify-content: space-between;
+  min-height: 560px;
+}
+
+@media screen and (max-width: 550px) {
+  .limiter {
+    margin: 0;
+  }
+  .view {
+    padding: 0;
+  }
+
+  .wrapper {
+    border-radius: 0 !important;
+  }
+  .view__content {
+  }
+  .flex-column.screen-nav-separator {
+    justify-content: space-between;
+    min-height: 95vh;
+  }
 }

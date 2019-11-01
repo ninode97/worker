@@ -20,12 +20,12 @@ const AdminView = props => {
         <View>
           <Wrapper style={styles.navigationWrapper}>
             {formatError(props.error)}
-            <FlexColumn>
+            <FlexColumn className="screen-nav-separator">
               <ScreenContent>
                 <AdminRoutes />
               </ScreenContent>
+              <AdminNavigation />
             </FlexColumn>
-            <AdminNavigation />
           </Wrapper>
         </View>
       </Limiter>
