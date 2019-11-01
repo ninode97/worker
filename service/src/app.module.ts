@@ -7,6 +7,11 @@ import { RoleModule } from './role/role.module';
 import { UserdataModule } from './userdata/userdata.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmConfig), AuthModule, UserModule, RoleModule, UserdataModule],
+  imports: [
+    TypeOrmModule.forRoot(typeOrmConfig),
+    AuthModule,
+    UserModule,
+    UserdataModule,
+  ],
 })
 export class AppModule {}
