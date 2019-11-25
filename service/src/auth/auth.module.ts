@@ -6,9 +6,10 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
 import * as config from 'config';
 import { UserModule } from '../user/user.module';
+import { RoleModule } from '../role/role.module';
 
 const jwtConfig = {
-  expiresIn: 3600,
+  expiresIn: '365d',
   secret: 'topSecret51',
 };
 
@@ -22,6 +23,7 @@ const jwtConfig = {
       },
     }),
     UserModule,
+    RoleModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],

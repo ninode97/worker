@@ -10,6 +10,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Role } from '../role/role.entity';
+import { SignUpDto } from '../auth/dto/sign-up.dto';
 
 interface ReactClientData {
   username: string;
@@ -32,7 +34,7 @@ export class UserRepository extends Repository<User> {
     }
   }
 
-  async updateUser(username: string, updateUserDto: UpdateUserDto) {
+  async updateUser(username: string, updateUserDto: UpdateUserDto, role: Role) {
     const user = await this.findOne({ where: { username: username } });
 
     try {
@@ -43,8 +45,8 @@ export class UserRepository extends Repository<User> {
           user.salt,
         );
       }
-      if (updateUserDto.role) {
-        user.role = updateUserDto.role;
+      if (role) {
+        user.role = role;
       }
 
       user.save();
@@ -54,15 +56,20 @@ export class UserRepository extends Repository<User> {
     }
   }
 
-  async signUp(authCredentialsDto: AuthCredentialsDto) {
-    const { username, password } = authCredentialsDto;
-    const exists = this.findOne({ username });
+  async signUp(signUpDto: SignUpDto, role: Role) {
+    const { username, password, firstName, lastName } = signUpDto;
+
+    if (!role) {
+      throw new NotFoundException('There is no such role');
+    }
 
     const user = new User();
     user.username = username;
     user.salt = await bcrypt.genSalt();
     user.password = await this.hashPassword(password, user.salt);
-    user.role = 'user';
+    user.role = role;
+    user.firstName = firstName;
+    user.lastName = lastName;
 
     try {
       await user.save();
@@ -87,9 +94,8 @@ export class UserRepository extends Repository<User> {
   ): Promise<ReactClientData> {
     const { username, password } = authCredentialsDto;
     const user = await this.findOne({ username });
-
     if (user && (await user.validatePassword(password))) {
-      return { username: user.username, role: user.role };
+      return { username: user.username, role: user.role.role };
     } else {
       return null;
     }

@@ -5,9 +5,9 @@ import { RoleRepository } from './role.repository';
 import { RoleController } from './role.controller';
 
 @Module({
+  exports: [TypeOrmModule],
   imports: [TypeOrmModule.forFeature([RoleRepository])],
   providers: [RoleService],
   controllers: [RoleController],
-  exports: [TypeOrmModule],
 })
 export class RoleModule {}

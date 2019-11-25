@@ -4,17 +4,25 @@ import {
   PrimaryGeneratedColumn,
   Column,
   Unique,
+  OneToOne,
 } from 'typeorm';
+import { User } from '../user/user.entity';
 
 @Entity()
 @Unique(['role'])
-export class RoleEntity extends BaseEntity {
+export class Role extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'role' })
+  @Column()
   role: string;
 
-  @Column()
+  @Column({ default: 0 })
+  accessLevel: number;
+
+  @Column({ default: new Date().toUTCString() })
   createdAt: string;
+
+  @OneToOne(type => User, user => user.role.role) // specify inverse side as a second parameter
+  user: User;
 }

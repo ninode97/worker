@@ -2,6 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
 import * as config from 'config';
+import * as bodyParser from 'body-parser';
+import * as helmet from 'helmet';
+import * as csurf from 'csurf';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   // const serverConfig = config.get('server');
@@ -20,7 +24,15 @@ async function bootstrap() {
     logger.log(`Accepting requests from origin "${serverConfig.origin}"`);
   }
 
+  app.use(bodyParser.json({ limit: '50mb' }));
+  app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+  app.use(helmet());
+
+  // app.use(cookieParser());
+  // app.use(csurf({ cookie: true }));
+
   const port = process.env.PORT || serverConfig.port;
+  app.enableCors();
   await app.listen(port);
   logger.log(`Application listening on port ${port}`);
 }

@@ -1,0 +1,15 @@
+.main-wrapper {
+  border: 1px solid gainsboro;
+  border-radius: 2rem 2rem;
+  padding: 2rem;
+  margin: 2rem;
+  font-size: 1.8rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  width: 600px;
+
+  background: #fff;
+}

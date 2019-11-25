@@ -5,12 +5,17 @@ import { UserRepository } from './user.repository';
 import { GetUserDto } from './dto/get-user-dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { RoleRepository } from '../role/role.repository';
+import { Role } from '../role/role.entity';
+import { SignUpDto } from '../auth/dto/sign-up.dto';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: UserRepository,
+    @InjectRepository(Role)
+    private roleRepository: RoleRepository,
   ) {}
 
   async findUser(getUserDto: GetUserDto) {
@@ -27,6 +32,28 @@ export class UserService {
   }
 
   async updateUser(username: string, updateUserDto: UpdateUserDto) {
-    return this.userRepository.updateUser(username, updateUserDto);
+    const role = await this.roleRepository.findOne({
+      where: updateUserDto.role,
+    });
+    return this.userRepository.updateUser(username, updateUserDto, role);
+  }
+
+  async signUp(signUpDto: SignUpDto) {
+    const role = await this.roleRepository.findOne({
+      where: {
+        role: 'user',
+      },
+    });
+    return this.userRepository.signUp(signUpDto, role);
+  }
+
+  async getAllUsernames() {
+    const users = await this.userRepository.find();
+    return users.map(user => user.username);
+  }
+
+  async getUserByUsername(username: string) {
+    const user = await this.userRepository.findOne({ where: { username } });
+    return user;
   }
 }

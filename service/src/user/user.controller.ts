@@ -7,12 +7,16 @@ import {
   Post,
   Param,
   Put,
+  Get,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUserDto } from './dto/get-user-dto';
 import { UserService } from './user.service';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { GetUser } from './decorators/get-user.decorator';
+import { User } from './user.entity';
 
 @Controller('users')
 @UseGuards(AuthGuard('jwt'))
@@ -40,9 +44,16 @@ export class UserController {
     @Param('username') username: string,
     @Body(ValidationPipe) updateUserDto: UpdateUserDto,
   ) {
-    console.log(`NUUU NX'`);
     console.log(updateUserDto);
     console.log(username);
     return this.userService.updateUser(username, updateUserDto);
+  }
+
+  @Get('/')
+  getAllUsers(@GetUser() user: User) {
+    if (user.role.role === 'admin') {
+      return this.userService.getAllUsernames();
+    }
+    throw new UnauthorizedException();
   }
 }
