@@ -9,9 +9,11 @@ import {
   PrimaryColumn,
   ManyToMany,
   JoinTable,
+  BeforeUpdate,
 } from 'typeorm';
 import { User } from '../user/user.entity';
 import { Workday } from './workday.entity';
+import { Workplace } from 'src/workplace/workplace.entity';
 
 @Entity()
 // @Unique(['user', 'workday'])
@@ -19,10 +21,16 @@ export class WorkdayInfo extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ name: 'started_at', type: 'timestamptz' })
+  startTime: Date;
+
+  @Column({ name: 'finished_at', type: 'timestamptz', nullable: true })
+  endTime: Date;
+
   @ManyToOne(
     type => Workday,
     workday => workday.workday,
-    { primary: true, onDelete: 'CASCADE' },
+    { primary: true, onDelete: 'CASCADE', eager:true},
   )
   workday: Workday;
 
@@ -33,12 +41,17 @@ export class WorkdayInfo extends BaseEntity {
   )
   user: User;
 
-  @Column({ name: 'started_at', type: 'timestamptz' })
-  startTime: Date;
+  @ManyToOne(
+    type => Workplace,
+    workplace => workplace.workdayInfo,
+    { primary: true, onDelete: 'CASCADE', eager: true },
+  )
+  workplace: Workplace;
 
-  @Column({ name: 'finished_at', type: 'timestamptz', nullable: true })
-  endTime: Date;
-
-  @Column({ default: false })
-  isFinished: boolean;
+  @BeforeUpdate()
+  finishWorkday() {
+    if (!this.endTime) {
+      this.endTime = new Date();
+    }
+  }
 }

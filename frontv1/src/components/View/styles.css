@@ -30,11 +30,12 @@
   .wrapper {
     border-radius: 0 !important;
   }
-  
+
   .flex-column.screen-nav-separator {
     justify-content: space-between;
     min-height: 95vh;
   }
-
-
+  .photo-container-scroller {
+    height: 750px !important;
+  }
 }

@@ -4,7 +4,7 @@ import "./styles.css";
 import axios from "axios";
 import { formatMessage, sortById } from "../../../../utils/utils";
 import { setError } from "../../../../actions/errorActions";
-import { triggerBase64Download } from "../../../../utils/photo";
+import moment from 'moment';
 
 function renderComments(comments) {
   console.log(`Comments=> ${JSON.stringify(comments)}`);
@@ -37,7 +37,7 @@ function renderComments(comments) {
           </span>
         </div>
         <div style={{ fontSize: ".9rem", textAlign: "right" }}>
-          {comment.addedAt}
+          {moment(new Date(comment.addedAt)).format('YYYY/MM/DD HH:mm:ss')}
         </div>
       </div>
     </div>
@@ -63,38 +63,23 @@ function handleSubmit(e, props) {
         photoId: id
       })
       .then(res => {
-        console.log(actions);
-        actions.errorSubmiter("Succesfully Added!");
-        // alert("Successfully Added!");
+        alert("Successfully Added!");
         // setMessage({ type: 'success', message: 'Successfully Added!' });
         console.log(res);
+        window.location.reload();
       })
       .catch(err => {
-        //  console.log(setError);
-        actions.errorSubmiter("Couldn't add message!");
-        // setMessage({ type: 'error', message: err });
-        // alert(`Error occurred, ${JSON.stringify(err)}`);
+
+        // setMessage({ type: 'error', message: err })
+        alert(`Error occurred, ${JSON.stringify(err)}`);
+        window.location.reload();
       });
   } else {
     actions.errorSubmiter("Couldn't add message!");
     //alert("error!");
   }
+}
 
-  setTimeout(() => actions.errorSubmiter(), 3000);
-}
-function downloadFile(record) {
-  axios({
-    url: record.links.image,
-    method: "GET"
-  }).then(response => {
-    const splitedFileName = record.name.split(".");
-    const ext = splitedFileName[splitedFileName.length - 1];
-    triggerBase64Download(
-      `data:image/${ext};base64,${response.data}`,
-      splitedFileName[0]
-    );
-  });
-}
 
 const PhotoRecord = props => {
   const [commentContent, setCommentContent] = React.useState(null);
@@ -110,6 +95,7 @@ const PhotoRecord = props => {
   } = props.record;
   console.log(props.record);
   console.log(links);
+
   return (
     <div style={styles.mainContainer} className="photo-record">
       <FlexColumn>
@@ -125,10 +111,7 @@ const PhotoRecord = props => {
 
         <hr />
         <div style={styles.imageContainer}>
-          <img
-            style={styles.image}
-            src={`data:image/png;base64, ${links.thumb}`}
-          />
+          <img style={styles.image} src={links.thumb} />
         </div>
         <div className="photo-comments">{renderComments(photoComments)}</div>
         <div
@@ -187,7 +170,6 @@ const PhotoRecord = props => {
           >
             Add Comment
           </button>
-
           <a
             style={{
               cursor: "pointer",
@@ -198,7 +180,8 @@ const PhotoRecord = props => {
               border: "1px solid gainsboro",
               borderRadius: "1rem 1rem"
             }}
-            onClick={() => downloadFile(props.record)}
+            href={props.record.links.image}
+            download
           >
             Download
           </a>

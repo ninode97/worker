@@ -9,9 +9,9 @@ import {
   Put,
   Get,
   UnauthorizedException,
+  NotFoundException,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { GetUserDto } from './dto/get-user-dto';
 import { UserService } from './user.service';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -22,34 +22,48 @@ import { User } from './user.entity';
 @UseGuards(AuthGuard('jwt'))
 export class UserController {
   constructor(private userService: UserService) {}
-  @Post('/')
-  getUserById(@Body(ValidationPipe) getUserDto: GetUserDto) {
-    if (Object.keys(getUserDto).length > 0) {
-      return this.userService.findUser(getUserDto);
-    } else {
-      throw new BadRequestException(
-        'You need to provide either username or id of the user!',
-      );
-    }
-  }
   @Post('/password')
   updateUserPassword(
+    @GetUser() requestedBy: User,
     @Body(ValidationPipe) changePasswordDto: ChangePasswordDto,
   ) {
+    if (requestedBy.role.role !== 'admin') {
+      throw new UnauthorizedException(
+        'You are not allowed to update another user..',
+      );
+    }
     return this.userService.updatePassword(changePasswordDto);
   }
-
   @Put('/:username')
   updateUser(
+    @GetUser() requestedBy: User,
     @Param('username') username: string,
     @Body(ValidationPipe) updateUserDto: UpdateUserDto,
   ) {
-    console.log(updateUserDto);
-    console.log(username);
+    const roles = ['admin', 'user'];
+    const { password, role } = updateUserDto;
+    if (requestedBy.role.role !== 'admin') {
+      throw new UnauthorizedException(
+        'You are not allowed to update another user..',
+      );
+    }
     return this.userService.updateUser(username, updateUserDto);
   }
+  @Get('/user/:username')
+  async getUserByUsername(
+    @GetUser() requestedBy: User,
+    @Param('username') username: string,
+  ) {
+    const user = await this.userService.getUserByUsername(username);
+    if (!username || !user) {
+      throw new NotFoundException('User was not found!');
+    }
+    delete user.salt;
+    delete user.password;
+    return user;
+  }
 
-  @Get('/')
+  @Get()
   getAllUsers(@GetUser() user: User) {
     if (user.role.role === 'admin') {
       return this.userService.getAllUsernames();

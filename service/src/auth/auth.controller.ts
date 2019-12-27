@@ -27,7 +27,6 @@ export class AuthController {
   signIn(
     @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto,
   ): Promise<{ accessToken: string }> {
-    console.log(`WTF NX`);
     return this.authService.signIn(authCredentialsDto);
   }
 

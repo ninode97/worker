@@ -14,6 +14,6 @@ import { PhotoModule } from '../photo/photo.module';
   ],
   providers: [PhotoCommentsService],
   controllers: [PhotoCommentsController],
-  exports: [PhotoCommentsService],
+  exports: [TypeOrmModule, PhotoCommentsService],
 })
 export class PhotoCommentsModule {}

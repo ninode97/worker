@@ -2,8 +2,6 @@ import {
   IsString,
   MinLength,
   MaxLength,
-  IsNumber,
-  IsOptional,
 } from 'class-validator';
 
 export class ChangePasswordDto {

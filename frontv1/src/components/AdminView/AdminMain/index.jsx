@@ -76,18 +76,12 @@ const AdminMain = props => {
     const userPhotosEndpoint = `https://workero.site/api/photos/${selectedUser}/${selectedDate}`;
 
     if (selectedUser && selectedDate) {
-      console.log(`GET => ${userPhotosEndpoint}`);
       setIsLoading(true);
       axios
         .get(userPhotosEndpoint)
         .then(res => {
-          console.log(res);
-          return Promise.all(transformPhotoObjects(res.data));
-        })
-        .then(photos => {
-          console.log(photos);
           setIsLoading(false);
-          const sortedPhotos = sortPhotosById(photos);
+          const sortedPhotos = sortPhotosById(res.data);
 
           setPhotos(sortedPhotos);
         })
@@ -97,8 +91,6 @@ const AdminMain = props => {
     }
   }, [selectedDate, selectedUser]);
 
-  console.log(photos);
-  const date = new Date();
   return (
     <div className="user-main__contents" style={styles.container}>
       <Title title="Photos" />

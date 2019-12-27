@@ -16,6 +16,7 @@ import { SignUpDto } from '../auth/dto/sign-up.dto';
 interface ReactClientData {
   username: string;
   role: string;
+  isBlocked: boolean;
 }
 
 @EntityRepository(User)
@@ -23,32 +24,32 @@ export class UserRepository extends Repository<User> {
   async updatePassword(changePasswordDto: ChangePasswordDto) {
     const { username, password } = changePasswordDto;
     const user = await this.findOne({ where: { username: username } });
-
     try {
       user.salt = await bcrypt.genSalt();
       user.password = await this.hashPassword(password, user.salt);
       user.save();
     } catch (err) {
-      console.log(err);
       throw new InternalServerErrorException("Couldn't change the password");
     }
   }
-
   async updateUser(username: string, updateUserDto: UpdateUserDto, role: Role) {
     const user = await this.findOne({ where: { username: username } });
+    const {
+      password,
+      firstName,
+      lastName,
+      isBlocked,
+      last4DigitsOfId,
+    } = updateUserDto;
 
     try {
-      user.salt = await bcrypt.genSalt();
-      if (updateUserDto.password) {
-        user.password = await this.hashPassword(
-          updateUserDto.password,
-          user.salt,
-        );
-      }
-      if (role) {
-        user.role = role;
-      }
-
+      if (password)
+        this.updatePassword({ username, password } as ChangePasswordDto);
+      if (role) user.role = role;
+      if (firstName) user.firstName = firstName;
+      if (lastName) user.lastName = lastName;
+      if (isBlocked !== null) user.isBlocked = isBlocked;
+      if (last4DigitsOfId) user.last4DigitsOfId = last4DigitsOfId;
       user.save();
       return user;
     } catch (err) {
@@ -95,7 +96,11 @@ export class UserRepository extends Repository<User> {
     const { username, password } = authCredentialsDto;
     const user = await this.findOne({ username });
     if (user && (await user.validatePassword(password))) {
-      return { username: user.username, role: user.role.role };
+      return {
+        username: user.username,
+        role: user.role.role,
+        isBlocked: user.isBlocked,
+      };
     } else {
       return null;
     }

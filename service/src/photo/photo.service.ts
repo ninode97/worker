@@ -1,16 +1,12 @@
-import {
-  Injectable,
-  ConflictException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Photo } from './photo.entity';
-import { PhotoComments } from 'src/photo-comments/photo-comments.entity';
-import { User } from 'src/user/user.entity';
+import { PhotoComments } from '../photo-comments/photo-comments.entity';
+import { User } from '../user/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PhotoRepository } from './photo.repository';
 import { Between } from 'typeorm';
 import { SubmisionType } from './submision-type.enum';
-import * as moment from 'moment';
+import { PhotoCommentsService } from '../photo-comments/photo-comments.service';
 
 type SafePhotoComment = {
   addedAt: Date;
@@ -37,24 +33,35 @@ type PhotoListWithLinks = {
 export class PhotoService {
   constructor(
     @InjectRepository(Photo) private photoRepository: PhotoRepository,
+    private photoCommentsService: PhotoCommentsService,
   ) {}
-  async addPhoto(newPhoto: Photo, firstComment: string) {
-    const comment = new PhotoComments();
-    comment.addedAt = new Date();
-    comment.message = firstComment;
-    comment.user = newPhoto.user;
-    comment.photo = newPhoto;
-    await newPhoto.save();
-    return comment.save().catch(err => {
-      console.log(err);
-      newPhoto.remove();
-      throw new ConflictException();
-    });
+
+  private formatFirstMessage(type: SubmisionType) {
+    if (type.toUpperCase() === 'START') {
+      return 'Started work in new workplace';
+    } else if (type.toUpperCase() === 'END') {
+      return 'Ended work';
+    } else {
+      return 'Additional photo';
+    }
   }
+  async addPhoto(newPhoto: Photo, firstComment: string) {
+    const photo = await this.photoRepository.addPhoto(newPhoto);
+    let comment =
+      firstComment && firstComment.length > 0 && firstComment !== 'null'
+        ? firstComment
+        : this.formatFirstMessage(photo.type);
+    const c = await this.photoCommentsService.addComment(photo.user, {
+      comment,
+      username: photo.user.username,
+      photoId: photo.id,
+    });
+    return photo;
+  }
+
   async filterByDate(user: User, date: Date) {
     const yDate = new Date(date);
     yDate.setDate(yDate.getDate() + 1);
-    console.log(yDate);
     const data = await this.photoRepository.find({
       where: {
         addedAt: Between(date, yDate),
@@ -77,12 +84,8 @@ export class PhotoService {
         photoComments: this.removeSecrets(photo.photoComments),
         type: photo.type,
         links: {
-          image: `https://workero.site/api/photos/${
-            photo.user.username
-          }/${folderName}/${photo.name}`,
-          thumb: `https://workero.site/api/photos/${
-            photo.user.username
-          }/${folderName}/${photo.thumbnailPath}`,
+          image: `https://workero.site/api/images/${photo.user.username}/${folderName}/${photo.name}`,
+          thumb: `https://workero.site/api/images/${photo.user.username}/${folderName}/${photo.thumbnailPath}`,
         },
       };
       formedData.push(obj);

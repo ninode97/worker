@@ -8,12 +8,14 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 import { Role } from '../role/role.entity';
 import { Photo } from '../photo/photo.entity';
 import { PhotoComments } from '../photo-comments/photo-comments.entity';
 import { Workday } from '../workday/workday.entity';
 import { WorkdayInfo } from '../workday/workday-info.entity';
+import { Workplace } from 'src/workplace/workplace.entity';
 
 @Entity()
 @Unique(['username'])
@@ -74,6 +76,13 @@ export class User extends BaseEntity {
     },
   )
   workdayInfos: WorkdayInfo[];
+
+  //FAILS UNKNOWN ERRROR....
+  // @OneToMany(
+  //   type => Workplace,
+  //   workplace => workplace,
+  // ) // specify inverse side as a second parameter
+  // workplace: Workplace[];
 
   async validatePassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt);

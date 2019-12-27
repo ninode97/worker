@@ -24,9 +24,10 @@ export class PhotoComments extends BaseEntity {
     user => user.username,
     {
       eager: true,
+      onDelete: 'CASCADE',
     },
   )
   user: User;
-  @ManyToOne(type => Photo)
+  @ManyToOne(type => Photo, { onDelete: 'CASCADE' })
   photo: Photo;
 }

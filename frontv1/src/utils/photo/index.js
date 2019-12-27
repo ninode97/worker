@@ -132,6 +132,7 @@ export async function getThumbnail(url) {
 export function transformPhotoObjects(photos) {
   return photos.map(async photo => {
     photo.links.thumb = await getThumbnail(photo.links.thumb);
+    console.log(photo.links.thumb);
 
     return photo;
   });

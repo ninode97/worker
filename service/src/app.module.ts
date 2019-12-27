@@ -7,33 +7,19 @@ import { RoleModule } from './role/role.module';
 import { PhotoModule } from './photo/photo.module';
 import { PhotoCommentsModule } from './photo-comments/photo-comments.module';
 import { MulterModule } from '@nestjs/platform-express';
-import { HandlebarsAdapter, MailerModule } from '@nest-modules/mailer';
 import { ReportModule } from './report/report.module';
 import { WorkdayModule } from './workday/workday.module';
+import { WorkplaceModule } from './workplace/workplace.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
     MulterModule.register({
       dest: './files',
     }),
-    MailerModule.forRootAsync({
-      useFactory: () => ({
-        transport: {
-          host: 'smtp.gmail.com',
-          port: 465,
-          auth: { user: 'djangotestfulservice', pass: 'babatukas12' },
-        },
-        defaults: {
-          from: '"nest-modules" <modules@nestjs.com>',
-        },
-        template: {
-          dir: __dirname + '/templates/uploadedPhoto.html',
-          adapter: new HandlebarsAdapter(), // or new PugAdapter()
-          options: {
-            strict: true,
-          },
-        },
-      }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
     }),
     TypeOrmModule.forRoot(typeOrmConfig),
     AuthModule,
@@ -43,6 +29,7 @@ import { WorkdayModule } from './workday/workday.module';
     PhotoCommentsModule,
     ReportModule,
     WorkdayModule,
+    WorkplaceModule,
   ],
 })
 export class AppModule {}

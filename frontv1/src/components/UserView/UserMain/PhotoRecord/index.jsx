@@ -3,9 +3,7 @@ import FlexColumn from "../../../shared/FlexColumn";
 import "./styles.css";
 import axios from "axios";
 import { formatMessage } from "../../../../utils/utils";
-import { triggerBase64Download } from "../../../../utils/photo";
-
-import { Link } from "react-router-dom";
+import moment from 'moment';
 
 function renderComments(comments) {
   return comments.map((comment, index) => (
@@ -35,7 +33,7 @@ function renderComments(comments) {
           </span>
         </div>
         <div style={{ fontSize: ".9rem", textAlign: "right" }}>
-          {comment.addedAt}
+          {moment(new Date(comment.addedAt)).format('YYYY/MM/DD HH:mm:ss')}
         </div>
       </div>
     </div>
@@ -43,8 +41,8 @@ function renderComments(comments) {
 }
 
 function handleSubmit(e, props) {
+  e.preventDefault();
   const { id, username, commentContent, setCommentContent, setMessage } = props;
-  console.log(props);
   if (id && username && commentContent) {
     axios
       .post("https://workero.site/api/photo-comments", {
@@ -56,30 +54,18 @@ function handleSubmit(e, props) {
         alert("Successfully Added!");
         // setMessage({ type: 'success', message: 'Successfully Added!' });
         console.log(res);
+        window.location.reload();
       })
       .catch(err => {
-        // setMessage({ type: 'error', message: err });
+
+        // setMessage({ type: 'error', message: err })
         alert(`Error occurred, ${JSON.stringify(err)}`);
+        window.location.reload();
       });
   } else {
     alert("error!");
-  }
-}
 
-function downloadFile(record) {
-  console.log(`DEBUUUG`);
-  console.log(record);
-  axios({
-    url: record.links.image,
-    method: "GET"
-  }).then(response => {
-    const splitedFileName = record.name.split(".");
-    const ext = splitedFileName[splitedFileName.length - 1];
-    triggerBase64Download(
-      `data:image/${ext};base64,${response.data}`,
-      splitedFileName[0]
-    );
-  });
+  }
 }
 
 const PhotoRecord = props => {
@@ -94,6 +80,8 @@ const PhotoRecord = props => {
     city,
     photoComments
   } = props.record;
+
+  console.log(props.record);
   return (
     <div style={styles.mainContainer} className="photo-record">
       <FlexColumn>
@@ -178,7 +166,9 @@ const PhotoRecord = props => {
               border: "1px solid gainsboro",
               borderRadius: "1rem 1rem"
             }}
-            onClick={() => downloadFile(props.record)}
+            href={props.record.links.image}
+            download
+          // onClick={() => downloadFile(props.record)}
           >
             Download
           </a>

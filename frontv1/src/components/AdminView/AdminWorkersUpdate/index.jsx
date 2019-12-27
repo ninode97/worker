@@ -1,63 +1,100 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import Title from '../../shared/Title';
-import InputControl from '../../shared/InputControl';
-import Input from '../../shared/Input';
-import ReadOnlyInput from '../../shared/ReadOnlyInput';
-import InputPlaceholder from '../../shared/InputPlaceholder';
-import FormButton from '../../shared/buttons/formButton/FormButton';
-import FormButtonContainer from '../../shared/buttons/formButton/FormButtonContainer';
-import FormButtonWrapper from '../../shared/buttons/formButton/FormButtonWrapper';
-import { formatMessage } from '../../../utils/utils';
+import React, { useState } from "react";
+import axios from "axios";
+import Title from "../../shared/Title";
+import InputControl from "../../shared/InputControl";
+import Input from "../../shared/Input";
+import ReadOnlyInput from "../../shared/ReadOnlyInput";
+import InputPlaceholder from "../../shared/InputPlaceholder";
+import FormButton from "../../shared/buttons/formButton/FormButton";
+import FormButtonContainer from "../../shared/buttons/formButton/FormButtonContainer";
+import FormButtonWrapper from "../../shared/buttons/formButton/FormButtonWrapper";
+import { formatMessage } from "../../../utils/utils";
+import { withRouter } from "react-router-dom";
 
-const AdminWorkersUpdate = () => {
+const AdminWorkersUpdate = props => {
   const [message, setMessage] = useState(null);
-  const [username, setUsername] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [role, setRole] = useState(null);
+  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+  const [isBlocked, setIsBlocked] = useState(false);
   const [foundUser, setFoundUser] = useState(null);
 
   function findUser(e) {
     setMessage(null);
     e.preventDefault();
     axios
-      .post('https://workero.site/api/users', { username })
+      .get(`https://workero.site/api/users/user/${username}`)
       .then(response => {
         if (response.data) {
+          console.log(response);
           setFoundUser(response.data);
-          setRole(response.data.role);
         } else {
-          setMessage({ type: 'error', message: 'User was not found!' });
+          console.log(response);
+          setMessage({ type: "error", message: "User was not found!" });
         }
       })
       .catch(error => {
-        setMessage({ type: 'error', message: 'Server is down!' });
+        if (error.response.status === 404) {
+          setMessage({ type: "error", message: "User was not found!" });
+        } else if (error.response.status === 403) {
+          setMessage({ type: "error", message: "You need to sign in!" });
+        } else {
+          console.log(error.response);
+          setMessage({ type: "error", message: "Server is down!" });
+        }
       });
   }
 
+  React.useEffect(() => {
+    console.log(foundUser);
+    if (foundUser) {
+      setUsername(foundUser.username);
+      setRole(foundUser.role.role);
+      setFirstName(foundUser.firstName);
+      setLastName(foundUser.lastName);
+      setIsBlocked(foundUser.isBlocked);
+    }
+  }, [foundUser]);
+
   function updateUser(e) {
     e.preventDefault();
+
     const data = {
+      firstName: firstName,
+      lastName: lastName,
       password: password,
-      role: role
+      role: role,
+      isBlocked: isBlocked
     };
+
+    Object.keys(data).map(key => {
+      if (data[key] === null || data[key] === "") delete data[key];
+    });
+
+    console.log(data);
 
     axios
       .put(`https://workero.site/api/users/${username}`, data)
-      .then(
-        response => {
-          setUsername(null);
-          setPassword(null);
-          setRole(null);
-          setFoundUser(null);
-          setMessage({ type: 'success', message: 'Successfully Updated!' });
-        },
-        err => {
-          setMessage({ type: 'error', message: 'Server is down!' });
-        }
-      )
+      .then(response => {
+        setUsername("");
+        setPassword("");
+        setRole("");
+        setFirstName("");
+        setLastName("");
+        setFoundUser("");
+        setIsBlocked(false);
+        setMessage({ type: "success", message: "Successfully Updated!" });
+        props.history.push("/");
+      })
       .catch(error => {
-        console.log(error);
+        if (error.response.status === 400) {
+          console.log(error.response.data.message);
+          //.setMessage({ type: "error", message: error.response.message[0] });
+        }
+        console.log(`RRESSxxS`);
+        console.log(error.response);
       });
   }
 
@@ -89,16 +126,34 @@ const AdminWorkersUpdate = () => {
           <Title title="Update Worker" />
           <form onSubmit={updateUser} style={styles.form}>
             <InputControl>
+              <p style={{ fontSize: "1.8rem" }} className="">
+                Username:
+                {foundUser.username === null ? "" : foundUser.username}
+              </p>
+            </InputControl>
+            <InputControl>
               <input
-                onChange={() => {}}
+                onChange={e => setFirstName(e.target.value)}
                 className={`input`}
                 type="text"
-                name="username"
-                id="username"
-                value={foundUser.username === null ? '' : foundUser.username}
+                name="firstName"
+                id="firstName"
+                value={firstName}
               />
 
-              <InputPlaceholder placeholder="Username" />
+              <InputPlaceholder placeholder="First Name" />
+            </InputControl>
+            <InputControl>
+              <input
+                onChange={e => setLastName(e.target.value)}
+                className={`input`}
+                type="text"
+                name="lastName"
+                id="lastName"
+                value={lastName}
+              />
+
+              <InputPlaceholder placeholder="Last Name" />
             </InputControl>
             <InputControl>
               <Input
@@ -106,6 +161,7 @@ const AdminWorkersUpdate = () => {
                 type="text"
                 name="password"
                 id="password"
+                value={password}
               />
               <InputPlaceholder placeholder="Password" />
             </InputControl>
@@ -116,11 +172,25 @@ const AdminWorkersUpdate = () => {
                 type="text"
                 name="role"
                 id="role"
-                value={role === null ? '' : role}
+                value={role === null ? "" : role}
               />
 
               <InputPlaceholder placeholder="Role" />
             </InputControl>
+
+            <div className="form-check">
+              <input
+                onChange={e => setIsBlocked(e.target.checked)}
+                type="checkbox"
+                className="form-check-input"
+                id="isBlocked"
+                checked={isBlocked}
+              />
+              <label className="form-check-label" htmlFor="isBlocked">
+                Block user ?
+              </label>
+            </div>
+
             <FormButtonContainer>
               <FormButtonWrapper>
                 <FormButton>Update User</FormButton>
@@ -135,12 +205,11 @@ const AdminWorkersUpdate = () => {
 
 const styles = {
   container: {
-    display: 'flex',
-    flexDirection: 'column'
+    display: "flex",
+    flexDirection: "column"
   },
   form: {
-    padding: '1rem 4rem'
+    padding: "1rem 4rem"
   }
 };
-
-export default AdminWorkersUpdate;
+export default withRouter(AdminWorkersUpdate);

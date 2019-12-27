@@ -36,12 +36,20 @@ export class Photo extends BaseEntity {
   // @Column()
   // city: string;
 
-  @ManyToOne(type => User, user => user.username, { eager: true })
+  @ManyToOne(
+    type => User,
+    user => user.username,
+    { eager: true, onDelete: 'CASCADE' },
+  )
   user: User;
 
-  @OneToMany(type => PhotoComments, photoComments => photoComments.photo, {
-    eager: true,
-  })
+  @OneToMany(
+    type => PhotoComments,
+    photoComments => photoComments.photo,
+    {
+      eager: true,
+    },
+  )
   photoComments: PhotoComments[];
 
   @Column()

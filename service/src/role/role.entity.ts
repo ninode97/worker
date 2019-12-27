@@ -20,9 +20,12 @@ export class Role extends BaseEntity {
   @Column({ default: 0 })
   accessLevel: number;
 
-  @Column({ default: new Date().toUTCString() })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: string;
 
-  @OneToOne(type => User, user => user.role.role) // specify inverse side as a second parameter
+  @OneToOne(
+    type => User,
+    user => user.role.role,
+  ) // specify inverse side as a second parameter
   user: User;
 }

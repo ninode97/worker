@@ -12,22 +12,64 @@ export class WorkdayRepository extends Repository<Workday> {
     return this.find({ where: options });
   }
 
+  async getWorkday(workday: string) {
+    const d = new Date(workday);
+    console.log(d);
+    const data = await this.findOne({ where: { workday: d } });
+    console.log(data);
+    return data;
+  }
+
   async createWorkday() {
-    let workday = new Workday();
-    workday.workday = new Date();
+    //FIX IT!
+    // let workday = new Workday();
+    // workday.workday = new Date();
+    const date = new Date();
+    let workday = await this.findOne({ where: { workday: date } });
+
     try {
-      await workday.save();
+      if (workday) {
+        return workday;
+      } else {
+        workday = new Workday();
+        workday.workday = date;
+        workday = await workday.save();
+        return workday;
+      }
     } catch (error) {
       if (error.code === '23505') {
-        console.log(`Exists, just return workday!`)
+        console.log(`Exists, just return workday!`);
       } else {
         console.log(error);
         throw new InternalServerErrorException();
       }
     } finally {
-      const data =  await this.findOne({ where: { workday: workday.workday } });;
-      console.log(data);
+      const data = await this.findOne({ where: { workday: workday.workday } });
       return data;
+    }
+  }
+
+  async ensureMonthFirstDay(workday: string) {
+    const w = await this.findOne({ where: { workday: new Date(workday) } });
+    if (w) {
+      return w;
+    } else {
+      try {
+        const newWorkday = new Workday();
+        const date = new Date(workday);
+        newWorkday.workday = date;
+        console.log(newWorkday);
+        return await newWorkday.save();
+      } catch (error) {
+        if (error.code === '23505') {
+          return await this.findOne({ where: { workday: new Date(workday) } });
+        } else {
+          console.log(error);
+          throw new InternalServerErrorException(
+            "Couldn't save the workday entity",
+          );
+        }
+      }
     }
   }
 }

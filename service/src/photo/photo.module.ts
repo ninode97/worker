@@ -7,6 +7,7 @@ import { PhotoRepository } from './photo.repository';
 import { ReportModule } from '../report/report.module';
 import { UserModule } from '../user/user.module';
 import { WorkdayModule } from '../workday/workday.module';
+import { WorkplaceModule } from '../workplace/workplace.module';
 
 @Module({
   providers: [PhotoService],
@@ -17,6 +18,7 @@ import { WorkdayModule } from '../workday/workday.module';
     ReportModule,
     UserModule,
     WorkdayModule,
+    WorkplaceModule,
   ],
   exports: [TypeOrmModule, PhotoService],
 })

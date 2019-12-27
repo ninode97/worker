@@ -1,4 +1,5 @@
-import { IsString, IsDate } from 'class-validator';
+import { IsString, IsDate, IsIn } from 'class-validator';
+import { SubmisionType } from 'src/photo/submision-type.enum';
 
 export class PhotoUploadReportDto {
   @IsString()
@@ -15,4 +16,11 @@ export class PhotoUploadReportDto {
 
   @IsString()
   photoName: string;
+
+  @IsString()
+  @IsIn([SubmisionType.START, SubmisionType.ADDITIONAL, SubmisionType.END])
+  submisionType: SubmisionType;
+
+  @IsString()
+  comment: string;
 }

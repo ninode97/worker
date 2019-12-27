@@ -1,7 +1,7 @@
-import React from 'react';
-import './index.css';
-import { Link } from 'react-router-dom';
-import Title from '../../shared/Title';
+import React from "react";
+import "./index.css";
+import { Link } from "react-router-dom";
+import Title from "../../shared/Title";
 
 const AdminWorkers = () => {
   return (
@@ -21,34 +21,20 @@ const AdminWorkers = () => {
       >
         Update Worker
       </Link>
-      <Link
-        className="admin-workers__button"
-        style={styles.button}
-        to="/workers/block"
-      >
-        Block Worker
-      </Link>
-      <Link
-        className="admin-workers__button"
-        style={styles.button}
-        to="/workers/find"
-      >
-        Find Worker
-      </Link>
     </div>
   );
 };
 
 const styles = {
   container: {
-    display: 'flex',
-    flexDirection: 'column'
+    display: "flex",
+    flexDirection: "column"
   },
   button: {
-    background: 'white',
-    width: '100%',
-    padding: '1rem',
-    border: '1px solid gainsboro'
+    background: "white",
+    width: "100%",
+    padding: "1rem",
+    border: "1px solid gainsboro"
   }
 };
 

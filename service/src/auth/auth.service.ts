@@ -29,9 +29,11 @@ export class AuthService {
       authCredentialsDto,
     );
 
-    if (!user) {
+    if (!user || (user && user.isBlocked)) {
       throw new UnauthorizedException('Invalid credentials');
     }
+
+    delete user.isBlocked;
 
     const { username, role } = user;
     const payload: JwtPayload = { username: username, role: role };
