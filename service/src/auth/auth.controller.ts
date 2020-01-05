@@ -12,6 +12,9 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Get } from '@nestjs/common';
 import { SignUpDto } from './dto/sign-up.dto';
+import { PushtokenService } from 'src/pushtoken/pushtoken.service';
+import { GetUser } from 'src/user/decorators/get-user.decorator';
+import { User } from 'src/user/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -24,15 +27,19 @@ export class AuthController {
   }
 
   @Post('/signin')
-  signIn(
+  async signIn(
     @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto,
   ): Promise<{ accessToken: string }> {
-    return this.authService.signIn(authCredentialsDto);
+    const { pushToken } = authCredentialsDto;
+    const accessToken = await this.authService.signIn(authCredentialsDto);
+    this.authService.handlePushNotificationByJwt(authCredentialsDto, pushToken);
+    return accessToken;
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('/')
-  isTokenValid() {
+  @Post('/')
+  isTokenValid(@GetUser() user: User, @Body('pushToken') pushToken: string) {
+    this.authService.handlePushNotificationByUser(user, pushToken);
     return { isValid: true };
   }
 }

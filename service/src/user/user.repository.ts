@@ -16,6 +16,8 @@ import { SignUpDto } from '../auth/dto/sign-up.dto';
 interface ReactClientData {
   username: string;
   role: string;
+  firstName: string;
+  lastName: string;
   isBlocked: boolean;
 }
 
@@ -99,6 +101,8 @@ export class UserRepository extends Repository<User> {
       return {
         username: user.username,
         role: user.role.role,
+        firstName: user.firstName,
+        lastName: user.lastName,
         isBlocked: user.isBlocked,
       };
     } else {

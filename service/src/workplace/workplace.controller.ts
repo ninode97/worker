@@ -23,6 +23,16 @@ export class WorkplaceController {
     return this.workplaceService.getWorkplaces(new WorkplaceDto());
   }
 
+  @Get('v2')
+  async getWorkplacesV2() {
+    const workplaces = await this.workplaceService.getWorkplaces(
+      new WorkplaceDto(),
+    );
+    return workplaces.map(workplace => ({
+      name: workplace.workplaceCode,
+    }));
+  }
+
   @Post('')
   addNewWorkplace(
     @GetUser() user: User,

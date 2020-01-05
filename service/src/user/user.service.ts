@@ -8,6 +8,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { RoleRepository } from '../role/role.repository';
 import { Role } from '../role/role.entity';
 import { SignUpDto } from '../auth/dto/sign-up.dto';
+import { Not } from 'typeorm';
 
 @Injectable()
 export class UserService {
@@ -16,7 +17,7 @@ export class UserService {
     private userRepository: UserRepository,
     @InjectRepository(Role)
     private roleRepository: RoleRepository,
-  ) { }
+  ) {}
 
   // async findUser(getUserDto: GetUserDto) {
   //   console.log(getUserDto);
@@ -50,6 +51,15 @@ export class UserService {
   async getAllUsernames() {
     const users = await this.userRepository.find();
     return users.map(user => user.username);
+  }
+  async getAllUsernamesTest(username: string) {
+    const users = await this.userRepository.find({
+      where: { username: Not(username) },
+    });
+    return users.map(user => ({
+      name: `${user.firstName} ${user.lastName}`,
+      username: user.username,
+    }));
   }
 
   async getUserByUsername(username: string) {

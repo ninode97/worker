@@ -101,6 +101,29 @@ export class PhotoController {
     }
   }
 
+  @Put('/v2')
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: diskStorage({
+        destination: './temp',
+        filename: (req, file, cb) => {
+          const randomName = Array(32)
+            .fill(null)
+            .map(() => Math.round(Math.random() * 16).toString(16))
+            .join('');
+          return cb(null, `${randomName}${extname(file.originalname)}`);
+        },
+      }),
+    }),
+  )
+  async uploadPhotoV2(
+    @GetUser() user: User,
+    @UploadedFile() image,
+    @Body() photoBodyDto: PhotoBodyDto,
+  ) {
+    console.log(image);
+  }
+
   @Put()
   @UseInterceptors(
     FileInterceptor('file', {
@@ -124,8 +147,8 @@ export class PhotoController {
     if (!file)
       throw new UnprocessableEntityException('You need to attach image!');
 
+    console.log(file);
     const { filename, path } = file;
-
     const date = new Date();
     const dateFormat = `${date.getUTCFullYear()}${date.getUTCMonth()}${date.getUTCDate()}`;
     const time = `${date.getUTCHours()}_${date.getUTCMinutes()}_${date.getMilliseconds()}`;
@@ -158,7 +181,6 @@ export class PhotoController {
         `Couldn't write image to server...`,
       );
     }
-
     //PHOTO ENTITY FORMATION
     const photoBody = parseFormData(photoBodyDto) as PhotoBodyDto;
     const newPhoto = new Photo();

@@ -6,6 +6,8 @@ import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { JwtPayload } from './jwt-payload.interface';
 import { UserService } from '../user/user.service';
 import { SignUpDto } from './dto/sign-up.dto';
+import { PushtokenService } from 'src/pushtoken/pushtoken.service';
+import { User } from 'src/user/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -16,6 +18,7 @@ export class AuthService {
     private userRepository: UserRepository,
     private userService: UserService,
     private jwtService: JwtService,
+    private pushTokenService: PushtokenService,
   ) {}
 
   async signUp(signUpDto: SignUpDto): Promise<void> {
@@ -25,23 +28,39 @@ export class AuthService {
   async signIn(
     authCredentialsDto: AuthCredentialsDto,
   ): Promise<{ accessToken: string }> {
-    const user = await this.userRepository.validateUserPassword(
-      authCredentialsDto,
+    const payload = await this.validateAuthDto(authCredentialsDto);
+    const accessToken = await this.jwtService.sign(payload);
+    this.logger.debug(
+      `Generated JWT Token with payload ${JSON.stringify(payload)}`,
     );
+    return { accessToken };
+  }
+
+  async handlePushNotificationByJwt(dto, pushtoken) {
+    const user = await this.userRepository.findOne({
+      where: { username: dto.username },
+    });
+
+    return this.handlePushNotificationByUser(user, pushtoken);
+  }
+  async handlePushNotificationByUser(user: User, pushToken: string) {
+    return this.pushTokenService.add(user, pushToken);
+  }
+
+  private async validateAuthDto(dto: AuthCredentialsDto): Promise<JwtPayload> {
+    const user = await this.userRepository.validateUserPassword(dto);
 
     if (!user || (user && user.isBlocked)) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    delete user.isBlocked;
+    const { username, role, firstName, lastName } = user;
 
-    const { username, role } = user;
-    const payload: JwtPayload = { username: username, role: role };
-    const accessToken = await this.jwtService.sign(payload);
-    this.logger.debug(
-      `Generated JWT Token with payload ${JSON.stringify(payload)}`,
-    );
-
-    return { accessToken };
+    return {
+      username,
+      role,
+      firstName,
+      lastName,
+    };
   }
 }

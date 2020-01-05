@@ -70,4 +70,12 @@ export class UserController {
     }
     throw new UnauthorizedException();
   }
+
+  @Get('/test/users')
+  getAllUsersTest(@GetUser() user: User) {
+    if (user.role.role === 'admin') {
+      return this.userService.getAllUsernamesTest(user.username);
+    }
+    throw new UnauthorizedException();
+  }
 }

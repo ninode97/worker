@@ -17,6 +17,7 @@ export class AddCommentDto {
   @IsNumber()
   photoId: number;
 
+  @IsOptional()
   @IsString()
   @MinLength(5)
   @MaxLength(100)

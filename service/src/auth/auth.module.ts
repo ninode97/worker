@@ -7,9 +7,10 @@ import { JwtStrategy } from './jwt.strategy';
 import * as config from 'config';
 import { UserModule } from '../user/user.module';
 import { RoleModule } from '../role/role.module';
+import { PushtokenModule } from 'src/pushtoken/pushtoken.module';
 
 const jwtConfig = {
-  expiresIn: '365d',
+  expiresIn: '900s',
   secret: 'topSecret51',
 };
 
@@ -24,6 +25,7 @@ const jwtConfig = {
     }),
     UserModule,
     RoleModule,
+    PushtokenModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
