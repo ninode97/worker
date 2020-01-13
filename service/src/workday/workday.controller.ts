@@ -2,33 +2,20 @@ import {
   Controller,
   Get,
   Post,
-  Body,
-  Param,
   Query,
   UnprocessableEntityException,
-  NotFoundException,
   UseGuards,
   MethodNotAllowedException,
 } from '@nestjs/common';
 import { WorkdayService } from './workday.service';
-import { WorkdayOptions } from './interfaces/workday-options.interface';
-import { WorkdayInfoDto } from './dto/workday-info.dto';
-import { WorkdayInfoOptions } from './interfaces/workday-info-options.interface';
+
 import { UserService } from 'src/user/user.service';
 import * as moment from 'moment';
-import { Workday } from './workday.entity';
+
 import { GetUser } from 'src/user/decorators/get-user.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from 'src/user/user.entity';
-
-function reduceNullObjectKeys(object) {
-  const reduced = Object.keys(object).map(key => {
-    if (object[key] === undefined || object[key] === null) {
-      delete object[key];
-    }
-  });
-  return object;
-}
+import { WorkdayDto } from './dto/workday.dto';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('workday')
@@ -44,98 +31,50 @@ export class WorkdayController {
     return this.workdayService.isWorkdayInfoCreatedV2(user);
   }
 
-  @Get()
-  async getWorkdays(
-    @GetUser() requestedBy: User,
-    @Query() workdayInfoDto: WorkdayInfoDto,
-  ) {
-    let {
-      isFinished,
-      username,
-      workday,
-      started_at,
-      finished_at,
-    } = workdayInfoDto;
-
-    // Admin role
-    if (requestedBy.role.role === 'admin') {
-      const user = await this.userService.getUserByUsername(username);
-
-      if (!moment(new Date(workday)).isValid()) {
-        throw new UnprocessableEntityException('Workday is not valid!');
-      }
-
-      let options = {
-        user,
-        workday: await this.workdayService.getWorkday(workday),
-      };
-
-
-      if (this.isDateTargetMonth(workday)) {
-        options.workday = await this.workdayService.ensureMonthFirstDay(
-          workday,
-        );
-      }
-
-      options = reduceNullObjectKeys(options);
-
-      if (options.workday) {
-        if (workday && this.isDateTargetMonth(workday)) {
-          return this.workdayService.getWorkdaysByMonth(options);
-        } else if (workday && this.isDateTargetDay(workday)) {
-          return this.workdayService.getWorkdaysByDay(options);
-        } else {
-          return this.workdayService.getWorkersWorkdayInfo(options);
-        }
-      } else {
-        return [];
-      }
-    } else if (requestedBy.role.role === 'user') {
-      let options = {
-        user: requestedBy,
-        workday: await this.workdayService.getWorkday(workday),
-      };
-
-      if (this.isDateTargetMonth(workday)) {
-        options.workday = await this.workdayService.ensureMonthFirstDay(
-          workday,
-        );
-      }
-
-      if (options.workday) {
-        if (workday && this.isDateTargetMonth(workday)) {
-          return this.workdayService.getWorkdaysByMonth(options);
-        } else if (workday && this.isDateTargetDay(workday)) {
-          return this.workdayService.getWorkdaysByDay(options);
-        } else {
-          return this.workdayService.getWorkersWorkdayInfo(options);
-        }
-      } else {
-        return [];
-      }
-    } else {
-      throw new MethodNotAllowedException('There is no such role!');
-    }
-  }
-
   @Post()
   createWorkday() {
     return this.workdayService.createWorkday();
   }
 
-  // Helpers
+  @Get()
+  getWorkdays(@GetUser() user: User, @Query() workday: WorkdayDto) {
+    if (!workday.workday || !moment(new Date(workday.workday)).isValid()) {
+      throw new UnprocessableEntityException('Workday is not valid!');
+    } else {
+      let splited = workday.workday.split('-');
 
-  private isDateTargetMonth(date) {
-    if (date.split('-').length === 2) {
-      return true;
+      if (splited.length === 3) {
+        return this.workdayService.getWorkdaysByDayV2(user, workday);
+      } else if (splited.length === 2) {
+        return this.workdayService.getWorkdaysByMonthV2(user, workday);
+      } else {
+        throw new UnprocessableEntityException('Workday is not valid!');
+      }
     }
-    return false;
   }
 
-  private isDateTargetDay(date) {
-    if (date.split('-').length === 3) {
-      return true;
+  @Get('/admin')
+  async getWorkdaysByAdmin(
+    @GetUser() requestedBy: User,
+    @Query() workday: WorkdayDto,
+  ) {
+    if (requestedBy.role.role === 'admin') {
+      if (!workday.workday || !moment(new Date(workday.workday)).isValid()) {
+        throw new UnprocessableEntityException('Workday is not valid!');
+      } else {
+        let splited = workday.workday.split('-');
+        let user = workday.username
+          ? await this.userService.getUserByUsername(workday.username)
+          : null;
+        if (splited.length === 3) {
+          return this.workdayService.getWorkdaysByDayByAdmin(user, workday);
+        } else if (splited.length === 2) {
+          return this.workdayService.getWorkdaysByMonthByAdmin(user, workday);
+        } else {
+          throw new UnprocessableEntityException('Workday is not valid!');
+        }
+      }
     }
-    return false;
+    throw new MethodNotAllowedException();
   }
 }

@@ -10,7 +10,8 @@ import { RoleModule } from '../role/role.module';
 import { PushtokenModule } from 'src/pushtoken/pushtoken.module';
 
 const jwtConfig = {
-  expiresIn: '900s',
+  // expiresIn: '900s',
+  expiresIn: '30d',
   secret: 'topSecret51',
 };
 

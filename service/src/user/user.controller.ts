@@ -10,6 +10,9 @@ import {
   Get,
   UnauthorizedException,
   NotFoundException,
+  MethodNotAllowedException,
+  Patch,
+  Query,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
@@ -17,6 +20,7 @@ import { ChangePasswordDto } from './dto/change-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { GetUser } from './decorators/get-user.decorator';
 import { User } from './user.entity';
+import { UserDto } from './dto/user.dto';
 
 @Controller('users')
 @UseGuards(AuthGuard('jwt'))
@@ -77,5 +81,43 @@ export class UserController {
       return this.userService.getAllUsernamesTest(user.username);
     }
     throw new UnauthorizedException();
+  }
+
+  @Post('')
+  addUser(@GetUser() user: User, @Body(ValidationPipe) newUser: UserDto) {
+    if (user.role.role === 'admin') {
+      return this.userService.addUser(newUser);
+    }
+    throw new MethodNotAllowedException();
+  }
+
+  @Patch('/:id')
+  changeBlockStatus(@GetUser() user: User, @Param('id') id) {
+    const userId = parseInt(id);
+    if (
+      user.role.role === 'admin' &&
+      !Number.isNaN(userId) &&
+      user.id !== userId
+    ) {
+      return this.userService.changeBlockStatus(userId);
+    }
+    throw new MethodNotAllowedException();
+  }
+  @Get('/:id')
+  getUserById(@GetUser() user: User, @Param('id') id) {
+    const userId = parseInt(id);
+    if (user.role.role === 'admin' && !Number.isNaN(userId)) {
+      return this.userService.getUserById(userId);
+    }
+    throw new MethodNotAllowedException();
+  }
+
+  @Get('/v2/suspend')
+  getByBlockStatus(@GetUser() user: User, @Query('isBlocked') isBlocked) {
+    isBlocked = isBlocked == 'true';
+    if (user.role.role === 'admin') {
+      return this.userService.getUsersByBlockStatus(user, isBlocked);
+    }
+    throw new MethodNotAllowedException();
   }
 }
