@@ -11,8 +11,8 @@ import { PushtokenModule } from 'src/pushtoken/pushtoken.module';
 
 const jwtConfig = {
   // expiresIn: '900s',
-  expiresIn: '30d',
-  secret: 'topSecret51',
+  expiresIn: '5h',
+  secret: 'OIOPZX1223asdzxcccx!@#@Czxz',
 };
 
 @Module({

@@ -123,4 +123,12 @@ export class UserService {
       userId: user.id,
     }));
   }
+
+  async getAdminUsernames() {
+    const role = await this.roleRepository.findOne({
+      where: { role: 'admin' },
+    });
+    const users = await this.userRepository.find({ where: { role } });
+    return users.map(user => user.username);
+  }
 }

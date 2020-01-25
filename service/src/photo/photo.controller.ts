@@ -1,6 +1,5 @@
 import {
   Controller,
-  Post,
   Get,
   Put,
   UseInterceptors,
@@ -8,8 +7,6 @@ import {
   UseGuards,
   Body,
   Param,
-  Res,
-  Header,
   NotFoundException,
   UnauthorizedException,
   InternalServerErrorException,
@@ -29,35 +26,27 @@ import { GetUser } from '../user/decorators/get-user.decorator';
 import { User } from '../user/user.entity';
 import { PhotoBodyDto } from './dto/photo-body.dto';
 import { PhotoService } from './photo.service';
-import { PhotoCommentsService } from 'src/photo-comments/photo-comments.service';
 import { Photo } from './photo.entity';
 import * as moment from 'moment';
-import { createReadStream } from 'fs';
 import { UserService } from '../user/user.service';
 import { ReportService } from '../report/report.service';
 import { WorkdayService } from '../workday/workday.service';
 import { WorkplaceService } from '../workplace/workplace.service';
 import { WorkdayInfo } from 'src/workday/workday-info.entity';
+import { PushtokenService } from '../pushtoken/pushtoken.service';
 
 const imageThumbnail = require('image-thumbnail');
-
-function base64_encode(file) {
-  // read binary data
-  var bitmap = fs.readFileSync(file, { encoding: 'base64' });
-  // convert binary data to base64 encoded string
-  return Buffer.from(bitmap).toString();
-}
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('photos')
 export class PhotoController {
   constructor(
     private photoService: PhotoService,
-    private photoCommentsService: PhotoCommentsService,
     private userService: UserService,
     private readonly reportService: ReportService,
     private readonly workdayService: WorkdayService,
     private readonly workplaceService: WorkplaceService,
+    private readonly pushTokenService: PushtokenService,
   ) {}
 
   @Get('/:username/:date/:photoname')
@@ -227,6 +216,7 @@ export class PhotoController {
             "Couldn't add photo... Please try again!",
           );
         } else {
+          this.pushAlert(`${user.firstName} ${user.lastName} started work!`);
           this.newUploadAlert(
             user,
             newPhoto,
@@ -262,6 +252,7 @@ export class PhotoController {
           "Couldn't add photo... Please try again!",
         );
       } else {
+        this.pushAlert(`${user.firstName} ${user.lastName} ended work!`);
         this.newUploadAlert(
           user,
           newPhoto,
@@ -293,6 +284,9 @@ export class PhotoController {
       } else {
         // LOG
         // REMOVE TEMP PHOTO
+        this.pushAlert(
+          `${user.firstName} ${user.lastName} added additional photo!`,
+        );
         this.newUploadAlert(
           user,
           newPhoto,
@@ -333,5 +327,10 @@ export class PhotoController {
       user,
       workdayInfo,
     );
+  }
+
+  private async pushAlert(body: string) {
+    const admins = await this.userService.getAdminUsernames();
+    this.pushTokenService.sendMessagesBatch(admins, body, {});
   }
 }

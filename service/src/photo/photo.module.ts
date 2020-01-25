@@ -8,6 +8,7 @@ import { ReportModule } from '../report/report.module';
 import { UserModule } from '../user/user.module';
 import { WorkdayModule } from '../workday/workday.module';
 import { WorkplaceModule } from '../workplace/workplace.module';
+import { PushtokenModule } from 'src/pushtoken/pushtoken.module';
 
 @Module({
   providers: [PhotoService],
@@ -19,6 +20,7 @@ import { WorkplaceModule } from '../workplace/workplace.module';
     UserModule,
     WorkdayModule,
     WorkplaceModule,
+    PushtokenModule,
   ],
   exports: [TypeOrmModule, PhotoService],
 })
