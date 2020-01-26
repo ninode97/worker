@@ -68,6 +68,7 @@ export class PushtokenService {
             .sendPushNotificationsAsync(chunk);
           console.log(ticketChunk);
           tickets.push(...ticketChunk);
+          console.log(ticketChunk);
           // NOTE: If a ticket contains an error code in ticket.details.error, you
           // must handle it appropriately. The error codes are listed in the Expo
           // documentation:
@@ -77,6 +78,7 @@ export class PushtokenService {
         }
       }
     })();
+    console.log(tickets);
   }
   async add(user: User, pushToken: string) {
     let record = await this.pushTokenRepository.findOne({

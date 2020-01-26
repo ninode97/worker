@@ -31,17 +31,16 @@ export class PhotoCommentsService {
     });
     let date = moment(photo.addedAt).format('YYYY/MM/DD');
     await this.photoCommentsRepository.addComment(user, addCommentDto, photo);
-    if (user.username !== photo.user.username) {
-      let users = Array.from(
-        new Set(photo.photoComments.map(comment => comment.user.username)),
-      );
 
-      let name = `${user.firstName} ${user.lastName}`;
-      let body = `${name} posted new comment on the ${name} photo [UPLOAD DATE: ${date}]`;
+    let users = Array.from(
+      new Set(photo.photoComments.map(comment => comment.user.username)),
+    );
 
-      users = users.filter(username => username !== user.username);
+    let name = `${user.firstName} ${user.lastName}`;
+    let body = `${name} posted new comment on the ${name} photo [UPLOAD DATE: ${date}]`;
 
-      this.pushTokenService.sendMessagesBatch(users, body, {});
-    }
+    users = users.filter(username => username !== user.username);
+
+    this.pushTokenService.sendMessagesBatch(users, body, {});
   }
 }

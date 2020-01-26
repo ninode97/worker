@@ -13,6 +13,7 @@ import { WorkplaceModule } from './workplace/workplace.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { PushtokenModule } from './pushtoken/pushtoken.module';
+import { Pushtokenv2Module } from './pushtokenv2/pushtokenv2.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { PushtokenModule } from './pushtoken/pushtoken.module';
     WorkdayModule,
     WorkplaceModule,
     PushtokenModule,
+    Pushtokenv2Module,
   ],
 })
 export class AppModule {}
