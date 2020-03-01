@@ -34,4 +34,8 @@ export class WorkplaceService {
       user,
     );
   }
+
+  async getWorkplaceV2(workplaceCode: string) {
+    return this.workplaceRepository.getWorkplace(workplaceCode);
+  }
 }

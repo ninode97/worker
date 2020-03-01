@@ -11,6 +11,9 @@ import {
 
 @EntityRepository(Workplace)
 export class WorkplaceRepository extends Repository<Workplace> {
+  async getWorkplace(workplaceCode: string) {
+    return this.findOne({ where: { workplaceCode } });
+  }
   async getWorkplaceByWorkplaceCode(workplaceCode: string, user: User) {
     let workplace = await this.findOne({ where: { workplaceCode } });
 

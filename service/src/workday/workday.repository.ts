@@ -5,6 +5,7 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { WorkdayOptions } from './interfaces/workday-options.interface';
+import * as moment from 'moment';
 
 @EntityRepository(Workday)
 export class WorkdayRepository extends Repository<Workday> {

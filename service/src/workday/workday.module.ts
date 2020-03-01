@@ -5,11 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { WorkdayRepository } from './workday.repository';
 import { WorkdayInfoRepository } from './workday-info.repository';
 import { UserModule } from 'src/user/user.module';
+import { WorkplaceModule } from 'src/workplace/workplace.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([WorkdayRepository, WorkdayInfoRepository]),
     UserModule,
+    WorkplaceModule,
   ],
   controllers: [WorkdayController],
   providers: [WorkdayService],

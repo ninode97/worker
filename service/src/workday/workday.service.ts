@@ -9,10 +9,13 @@ import { UpdateWorkdayInfoDto } from './dto/update-workday-info.dto';
 import { CreateWorkdayInfoDto } from './dto/create-workday-info.dto';
 import { User } from '../user/user.entity';
 import * as moment from 'moment';
+import { WorkdayDto } from './dto/workday.dto';
+import { WorkplaceService } from 'src/workplace/workplace.service';
 
 @Injectable()
 export class WorkdayService {
   constructor(
+    private readonly worplaceService: WorkplaceService,
     @InjectRepository(WorkdayRepository)
     private readonly workdayRepository: WorkdayRepository,
     @InjectRepository(WorkdayInfoRepository)
@@ -87,5 +90,65 @@ export class WorkdayService {
   }
   async getWorkdayInfo(user: User) {
     return this.workdayInfoRepository.getWorkdayInfo(user);
+  }
+
+  async getWorkdaysByMonthV2(user: User, workdayDto: WorkdayDto) {
+    const workplace = await this.worplaceService.getWorkplaceV2(
+      workdayDto.workplace,
+    );
+    return this.workdayInfoRepository.getWorkdaysByMonthV2(
+      user,
+      workdayDto,
+      workplace,
+    );
+  }
+  async getWorkdaysByDayV2(user: User, workdayDto: WorkdayDto) {
+    const workplace = await this.worplaceService.getWorkplaceV2(
+      workdayDto.workplace,
+    );
+    const date = moment(new Date(workdayDto.workday)).format('YYYY-MM-DD');
+    const workday = await this.workdayRepository.ensureMonthFirstDay(date);
+
+    console.log('workday=>');
+    console.log(workday);
+    if (workday) {
+      return this.workdayInfoRepository.getWorkdaysByDayV2(
+        user,
+        workplace,
+        workday,
+      );
+    }
+    return [];
+  }
+
+  //admin routes
+
+  async getWorkdaysByMonthByAdmin(user: User, workdayDto: WorkdayDto) {
+    const workplace = await this.worplaceService.getWorkplaceV2(
+      workdayDto.workplace,
+    );
+    return this.workdayInfoRepository.getWorkdaysByMonthByAdmin(
+      user,
+      workdayDto,
+      workplace,
+    );
+  }
+  async getWorkdaysByDayByAdmin(user: User, workdayDto: WorkdayDto) {
+    const workplace = await this.worplaceService.getWorkplaceV2(
+      workdayDto.workplace,
+    );
+    const date = moment(new Date(workdayDto.workday)).format('YYYY-MM-DD');
+    const workday = await this.workdayRepository.ensureMonthFirstDay(date);
+
+    console.log('workday=>');
+    console.log(workday);
+    if (workday) {
+      return this.workdayInfoRepository.getWorkdaysByDayByAdmin(
+        user,
+        workplace,
+        workday,
+      );
+    }
+    return [];
   }
 }

@@ -7,7 +7,10 @@ import { UserRepository } from '../user/user.repository';
 import { User } from '../user/user.entity';
 import * as config from 'config';
 
-const jwt = { expiresIn: 3600, secret: 'topSecret51' };
+const jwt = {
+  expiresIn: '5h',
+  secret: 'OIOPZX1223asdzxcccx!@#@Czxz',
+};
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
