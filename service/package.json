@@ -57,7 +57,7 @@
     "rimraf": "^2.6.2",
     "rxjs": "^6.3.3",
     "ts-node": "^7.0.1",
-    "typeorm": "^0.2.17",
+    "typeorm": "^0.2.25",
     "typescript": "^3.2.4"
   },
   "devDependencies": {
